@@ -98,6 +98,9 @@
 
   /* publication */
   .pub{border:1px solid var(--line);background:linear-gradient(135deg,var(--ink-2),var(--ink));padding:32px 34px;position:relative;overflow:hidden}
+  /* When the paper is public, enable the clickable variant:
+  a.pub{display:block;transition:border-color .25s} a.pub:hover{border-color:var(--amber)} a.pub:hover h3{color:var(--amber)} .pub h3{transition:color .2s}
+  .pubcta{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.03em;position:relative;z-index:1} */
   .pub::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,var(--amber-soft),transparent 70%)}
   .pub .meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--amber);text-transform:uppercase}
   .pub h3{margin-top:14px;font-size:clamp(1.2rem,3vw,1.6rem);font-weight:500;line-height:1.25;max-width:760px}
@@ -228,9 +231,13 @@
 <!-- ============ RESEARCH ============ -->
 <section id="research" class="wrap">
   <div class="shead rv"><span class="no">02</span><h2>Research</h2><span class="rule"></span></div>
+  <!-- When ICCA publishes: change <div class="pub rv"> to
+       <a class="pub rv" href="./paper.pdf" target="_blank" rel="noopener"> ... </a>,
+       uncomment the a.pub CSS above, add <div class="pubcta">Read paper (PDF) ↗</div>,
+       remove paper.pdf from .gitignore, and commit paper.pdf. -->
   <div class="pub rv">
     <div class="meta">Undergraduate Thesis</div>
-    <h3>Adaptive Post-Training Optimization for Memory-Efficient 3D Gaussian Splatting</h3>
+    <h3>Beyond Naive INT8: Adaptive Post-Training Compression for 3D Gaussian Splatting</h3>
     <div class="sub">First author · <span class="ur">under review, ICCA 2026</span> · trained on Kaggle T4 · scenes: Garden, Bicycle, Vase</div>
   </div>
 </section>
