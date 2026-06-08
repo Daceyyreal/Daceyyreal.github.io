@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- FILL: confirm display name (inferred from account emails). Replace if wrong. -->
+<title>Taifur Rahman — 3D Vision & ML Systems</title>
+<meta name="description" content="Final-year CS student building memory-efficient 3D Gaussian Splatting tooling and ML infrastructure." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0a0a0c;
+    --ink-2:#101015;
+    --panel:#15151b;
+    --line:#26262f;
+    --bone:#e9e6df;
+    --mute:#8a8a96;
+    --dim:#5c5c68;
+    --amber:#f0a843;
+    --amber-soft:#f0a8431a;
+    --cool:#6fb4c9;
+    --serif:"Bricolage Grotesque",serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:var(--serif);
+    font-weight:350;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--amber);color:var(--ink)}
+  a{color:inherit;text-decoration:none}
+
+  /* gaussian field bg */
+  #field{position:fixed;inset:0;z-index:0;opacity:.55;pointer-events:none}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:0 28px}
+
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:10;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 28px;
+    backdrop-filter:blur(8px);
+    background:linear-gradient(180deg,rgba(10,10,12,.85),rgba(10,10,12,0));
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+  nav .id{color:var(--bone);font-weight:700}
+  nav .id span{color:var(--amber)}
+  nav .links{display:flex;gap:22px;color:var(--mute)}
+  nav .links a{transition:color .2s}
+  nav .links a:hover{color:var(--amber)}
+  @media(max-width:640px){nav .links{display:none}}
+
+  /* hero */
+  header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:90px;padding-bottom:60px}
+  .tag{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:22px}
+  h1{font-size:clamp(2.9rem,9vw,6.4rem);font-weight:700;line-height:.96;letter-spacing:-.02em}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lede{max-width:640px;margin-top:26px;font-size:clamp(1.05rem,2vw,1.35rem);font-weight:300;color:#cfccc4}
+  .lede b{font-weight:600;color:var(--bone)}
+  .spec{margin-top:42px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);max-width:680px}
+  .spec div{background:var(--ink);padding:14px 16px;font-family:var(--mono);font-size:12px}
+  .spec .k{color:var(--dim);letter-spacing:.05em}
+  .spec .v{color:var(--bone);margin-top:4px}
+  .spec .v a{border-bottom:1px solid var(--amber);color:var(--amber)}
+
+  /* sections */
+  section{padding:96px 0;position:relative}
+  .shead{display:flex;align-items:baseline;gap:16px;margin-bottom:48px}
+  .shead .no{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.1em}
+  .shead h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;letter-spacing:-.01em}
+  .shead .rule{flex:1;height:1px;background:var(--line);align-self:center}
+
+  /* projects */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--ink-2);padding:30px 30px 26px;display:flex;flex-direction:column;min-height:240px;transition:background .25s;position:relative}
+  .card:hover{background:var(--panel)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .card h3{font-family:var(--mono);font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+  .card h3 .flag{color:var(--amber)}
+  .card .status{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--dim);text-transform:uppercase;border:1px solid var(--line);padding:3px 7px;border-radius:2px;white-space:nowrap}
+  .card .status.live{color:var(--cool);border-color:#2f4a52}
+  .card p{margin-top:14px;font-size:.97rem;font-weight:300;color:#c4c1ba;flex:1}
+  .card .stack{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.03em}
+  .card .acts{margin-top:18px;display:flex;gap:18px;font-family:var(--mono);font-size:12px}
+  .card .acts a{color:var(--amber);border-bottom:1px solid transparent;transition:border .2s;padding-bottom:1px}
+  .card .acts a:hover{border-color:var(--amber)}
+  .card .acts a::before{content:"→ "}
+
+  /* publication */
+  .pub{border:1px solid var(--line);background:linear-gradient(135deg,var(--ink-2),var(--ink));padding:32px 34px;position:relative;overflow:hidden}
+  .pub::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,var(--amber-soft),transparent 70%)}
+  .pub .meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--amber);text-transform:uppercase}
+  .pub h3{margin-top:14px;font-size:clamp(1.2rem,3vw,1.6rem);font-weight:500;line-height:1.25;max-width:760px}
+  .pub .sub{margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
+  .pub .sub .ur{color:var(--cool)}
+
+  /* writing */
+  .posts{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .post{border-bottom:1px solid var(--line);padding:26px 4px;display:grid;grid-template-columns:60px 1fr auto;gap:22px;align-items:baseline;transition:background .2s}
+  .post:hover{background:var(--ink-2)}
+  .post .idx{font-family:var(--mono);font-size:12px;color:var(--amber)}
+  .post .body h3{font-size:1.25rem;font-weight:500;letter-spacing:-.01em}
+  .post .body p{margin-top:8px;font-size:.95rem;font-weight:300;color:var(--mute);max-width:640px}
+  .post .go{font-family:var(--mono);font-size:12px;color:var(--dim);white-space:nowrap}
+  .post:hover .go{color:var(--amber)}
+  @media(max-width:640px){.post{grid-template-columns:1fr}.post .idx,.post .go{display:none}}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+  @media(max-width:760px){.about{grid-template-columns:1fr;gap:34px}}
+  .about p{font-size:1.05rem;font-weight:300;color:#cfccc4;margin-bottom:18px}
+  .about p b{font-weight:600;color:var(--bone)}
+  .about .side{font-family:var(--mono);font-size:12.5px}
+  .about .side .row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)}
+  .about .side .row span:first-child{color:var(--dim)}
+  .about .side .row span:last-child{color:var(--bone)}
+
+  /* footer */
+  footer{padding:80px 0 60px;border-top:1px solid var(--line);margin-top:40px}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:flex-end}
+  .foot .big{font-size:clamp(1.8rem,5vw,3rem);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .foot .big a{color:var(--amber)}
+  .foot .links{display:flex;gap:24px;font-family:var(--mono);font-size:13px}
+  .foot .links a{color:var(--mute);transition:color .2s}
+  .foot .links a:hover{color:var(--amber)}
+  .foot .copy{width:100%;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:34px;letter-spacing:.04em}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .rv.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+<div class="grain"></div>
+
+<nav>
+  <div class="id">DACE<span>//</span>3DGS</div>
+  <div class="links">
+    <a href="#work">work</a>
+    <a href="#research">research</a>
+    <a href="#writing">writing</a>
+    <a href="#about">about</a>
+    <a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">github ↗</a>
+  </div>
+</nav>
+
+<header class="wrap">
+  <div class="tag rv">3D Vision · ML Systems · Tooling</div>
+  <!-- FILL: confirm name -->
+  <h1 class="rv">Taifur<br>Rahman<em>.</em></h1>
+  <p class="lede rv">Final-year CS at IUBAT, Dhaka. I build <b>memory-efficient 3D Gaussian Splatting</b> and the ML tooling around it — compression that ships, pipelines that run with one command.</p>
+  <div class="spec rv">
+    <div><div class="k">FOCUS</div><div class="v">3DGS / NeRF compression</div></div>
+    <div><div class="k">STACK</div><div class="v">Python · TS · Three.js</div></div>
+    <div><div class="k">SEEKING</div><div class="v">CS MS · SWE roles</div></div>
+    <div><div class="k">GITHUB</div><div class="v"><a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">@Daceyyreal</a></div></div>
+  </div>
+</header>
+
+<!-- ============ WORK ============ -->
+<section id="work" class="wrap">
+  <div class="shead rv"><span class="no">01</span><h2>Selected Work</h2><span class="rule"></span></div>
+  <div class="grid rv">
+
+    <div class="card">
+      <div class="top">
+        <h3>splat-slim <span class="flag">★</span></h3>
+        <span class="status">v0.1.0</span>
+      </div>
+      <p>Training-free 3D Gaussian Splatting compression as a CLI + library. Mixed-precision and self-decodable sub-group INT8 — ~74% size reduction at sub-dB quality loss. The flagship.</p>
+      <div class="stack">Python · Typer · numpy · plyfile · ruff + pytest CI · MIT</div>
+      <div class="acts">
+        <a href="https://github.com/Daceyyreal/splat-slim" target="_blank" rel="noopener">repo</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <h3>splat-lab</h3>
+        <span class="status live">live demo</span>
+      </div>
+      <p>In-browser 3DGS compression demo. Load a splat, watch quality vs. size trade off in real time. No backend — it all runs on the GPU in your tab.</p>
+      <div class="stack">Vite · TypeScript · Three.js · GitHub Pages</div>
+      <div class="acts">
+        <a href="https://daceyyreal.github.io/splat-lab/" target="_blank" rel="noopener">launch</a>
+        <a href="https://github.com/Daceyyreal/splat-lab" target="_blank" rel="noopener">repo</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <h3>nerf-prep</h3>
+        <span class="status">v0.1.1</span>
+      </div>
+      <p>Dockerized, one-command COLMAP → Nerfstudio dataset prep. Point it at a folder of photos, get a training-ready scene. Published to ghcr, OCI-labelled.</p>
+      <div class="stack">Python · Typer · COLMAP · Docker / ghcr · MIT</div>
+      <div class="acts">
+        <a href="https://github.com/Daceyyreal/nerf-prep" target="_blank" rel="noopener">repo</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <h3>paper-chat</h3>
+        <span class="status">RAG</span>
+      </div>
+      <p>Chat with your papers, with per-(paper, page) citations so every answer points back to the source. Swappable LLM backend — Groq or Gemini.</p>
+      <div class="stack">Python · sentence-transformers · PyMuPDF · Streamlit · MIT</div>
+      <div class="acts">
+        <a href="https://github.com/Daceyyreal/paper-chat" target="_blank" rel="noopener">repo</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section id="research" class="wrap">
+  <div class="shead rv"><span class="no">02</span><h2>Research</h2><span class="rule"></span></div>
+  <div class="pub rv">
+    <div class="meta">Undergraduate Thesis</div>
+    <h3>Adaptive Post-Training Optimization for Memory-Efficient 3D Gaussian Splatting</h3>
+    <div class="sub">First author · <span class="ur">under review, ICCA 2026</span> · trained on Kaggle T4 · scenes: Garden, Bicycle, Vase</div>
+  </div>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section id="writing" class="wrap">
+  <div class="shead rv"><span class="no">03</span><h2>Writing</h2><span class="rule"></span></div>
+  <div class="posts rv">
+    <a class="post" href="./writing/int8-collapse-morton-fix.html">
+      <div class="idx">001</div>
+      <div class="body">
+        <h3>Why per-column INT8 collapses 3DGS to 15 dB — and how Morton ordering fixes it</h3>
+        <p>A scene-independent quality cliff turned out to be a quantization-range artifact. Morton Z-order sub-group ranges recover to within 0.08–0.66 dB of FP16, self-decodable from a sidecar.</p>
+      </div>
+      <div class="go">read →</div>
+    </a>
+    <a class="post" href="./writing/finetune-zero-update-bug.html">
+      <div class="idx">002</div>
+      <div class="body">
+        <h3>The fine-tune that silently did nothing: a zero-update negative result</h3>
+        <p>Post-pruning fine-tuning that looked like it ran but moved no weights. Pruning outside the densification strategy desynced the optimizer's moment buffers — steps landing on stale tensors.</p>
+      </div>
+      <div class="go">read →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="wrap">
+  <div class="shead rv"><span class="no">04</span><h2>About</h2><span class="rule"></span></div>
+  <div class="about">
+    <div class="rv">
+      <p>I work where <b>3D vision meets systems engineering</b> — taking research-grade rendering and making it small enough, fast enough, and reproducible enough to actually use.</p>
+      <p>My thesis attacks 3DGS memory cost without retraining: adaptive opacity pruning, spherical-harmonic reduction, and a quantization scheme that survives contact with real scenes. The tools above are the parts I thought others should be able to run, not just read about.</p>
+      <p>Looking for a <b>CS master's (Canada / Australia)</b> and SWE work in 3D vision, graphics, or ML infrastructure.</p>
+    </div>
+    <div class="side rv">
+      <div class="row"><span>Location</span><span>Dhaka, BD</span></div>
+      <div class="row"><span>University</span><span>IUBAT</span></div>
+      <div class="row"><span>Field</span><span>Computer Science</span></div>
+      <div class="row"><span>Year</span><span>Final</span></div>
+      <div class="row"><span>Languages</span><span>Python, TS, C++</span></div>
+      <div class="row"><span>License</span><span>Open to relocate</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="wrap">
+  <div class="foot">
+    <div class="big rv">Let's build<br>something <a href="mailto:taifurrahman0606@gmail.com">small.</a></div>
+    <div class="links rv">
+      <a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:taifurrahman0606@gmail.com">Email</a>
+      <!-- Re-add when ready:
+      <a href="https://www.linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="./cv.pdf" target="_blank" rel="noopener">CV</a>  (drop cv.pdf in the repo root first) -->
+    </div>
+    <div class="copy">© 2026 · built &amp; deployed by hand · github.com/Daceyyreal</div>
+  </div>
+</footer>
+
+<script>
+// soft gaussian field
+(function(){
+  const c=document.getElementById('field'),x=c.getContext('2d');
+  let w,h,pts,raf;
+  const N=Math.min(70, Math.floor((window.innerWidth*window.innerHeight)/26000));
+  function size(){w=c.width=innerWidth*devicePixelRatio;h=c.height=innerHeight*devicePixelRatio;}
+  function init(){
+    pts=[];for(let i=0;i<N;i++){pts.push({
+      x:Math.random()*w,y:Math.random()*h,
+      r:(Math.random()*46+14)*devicePixelRatio,
+      vx:(Math.random()-.5)*.12*devicePixelRatio,
+      vy:(Math.random()-.5)*.12*devicePixelRatio,
+      a:Math.random()*.4+.08,
+      amber:Math.random()<.45
+    });}
+  }
+  function draw(){
+    x.clearRect(0,0,w,h);
+    x.globalCompositeOperation='lighter';
+    for(const p of pts){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<-80)p.x=w+80;if(p.x>w+80)p.x=-80;
+      if(p.y<-80)p.y=h+80;if(p.y>h+80)p.y=-80;
+      const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+      const col=p.amber?'240,168,67':'111,180,201';
+      g.addColorStop(0,'rgba('+col+','+p.a+')');
+      g.addColorStop(1,'rgba('+col+',0)');
+      x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  size();init();draw();
+  addEventListener('resize',()=>{cancelAnimationFrame(raf);size();init();draw();});
+})();
+
+// scroll reveal
+(function(){
+  const els=document.querySelectorAll('.rv');
+  const io=new IntersectionObserver((es)=>{
+    es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);io.unobserve(e.target);}});
+  },{threshold:.12});
+  els.forEach(e=>io.observe(e));
+  // hero in immediately
+  document.querySelectorAll('header .rv').forEach((e,i)=>setTimeout(()=>e.classList.add('in'),120+i*110));
+})();
+</script>
+</body>
+</html>
