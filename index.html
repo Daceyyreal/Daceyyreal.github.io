@@ -131,11 +131,14 @@
   .card p{margin-top:14px;font-size:.97rem;font-weight:300;color:#c4c1ba;flex:1}
   .card .stack{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.03em}
   .card .acts{margin-top:18px;display:flex;gap:18px;font-family:var(--mono);font-size:12px}
-  .card .acts a{color:var(--amber);border-bottom:1px solid transparent;transition:border .2s;padding-bottom:1px;position:relative;z-index:2}
+  .card .acts a{color:var(--amber);border-bottom:1px solid transparent;transition:border .2s;padding-bottom:1px}
   .card .acts a:hover{border-color:var(--amber)}
   .card .acts a::before{content:"→ "}
-  /* whole-card click target: the primary link stretches to cover the card;
-     the small action links sit above it (z-index:2) so they still work individually */
+  /* Whole-card click target: the primary (.stretch) link must NOT be positioned,
+     so its ::after anchors to .card (the nearest positioned ancestor) and covers
+     the full card. Secondary links are positioned with a higher z-index so they
+     stay individually clickable above the overlay. */
+  .card .acts a:not(.stretch){position:relative;z-index:2}
   .card .acts a.stretch::after{content:"";position:absolute;inset:0;z-index:1}
   .card{cursor:pointer}
 
