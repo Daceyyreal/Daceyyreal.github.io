@@ -166,6 +166,26 @@
   .pub .sub{margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
   .pub .sub .ur{color:var(--cool)}
 
+  /* research extras */
+  .pubgrid{display:grid;grid-template-columns:3fr 2fr;gap:24px;align-items:stretch}
+  @media(max-width:860px){.pubgrid{grid-template-columns:1fr}}
+  .fig{border:1px solid var(--line);background:var(--ink-2);padding:16px 16px 12px;display:flex;flex-direction:column;justify-content:center}
+  .fig img{width:100%;display:block;border-radius:2px;filter:saturate(.92)}
+  .fig .cap{margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.03em;line-height:1.5}
+  .stats{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stats div{background:var(--ink-2);padding:20px 22px}
+  .stats .n{font-family:var(--mono);font-size:clamp(1.3rem,2.6vw,1.8rem);font-weight:700;color:var(--amber)}
+  .stats .l{margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em;line-height:1.45}
+
+  /* toolbox chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--mute);
+    border:1px solid var(--line);border-radius:2px;padding:5px 11px;background:var(--ink-2);
+    transition:color .2s,border-color .2s}
+  .chip:hover{color:var(--amber);border-color:var(--amber)}
+  .chips .lbl{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;align-self:center;margin-right:6px}
+
   /* writing */
   .posts{display:flex;flex-direction:column;border-top:1px solid var(--line)}
   .post{
@@ -253,6 +273,8 @@
     <div><div class="k">FOCUS</div><div class="v">3DGS / NeRF compression</div></div>
     <div><div class="k">STACK</div><div class="v">Python · TS · Three.js</div></div>
     <div><div class="k">SEEKING</div><div class="v">CS MS · SWE roles</div></div>
+    <div><div class="k">PAPER</div><div class="v">ICCA 2026 · under review</div></div>
+    <div><div class="k">SHIPPED</div><div class="v">4 tools · 2 writeups</div></div>
     <div><div class="k">GITHUB</div><div class="v"><a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">@Daceyyreal</a></div></div>
   </div>
 </header>
@@ -321,10 +343,23 @@
        <a class="pub rv" href="./paper.pdf" target="_blank" rel="noopener"> ... </a>,
        uncomment the a.pub CSS above, add <div class="pubcta">Read paper (PDF) ↗</div>,
        remove paper.pdf from .gitignore, and commit paper.pdf. -->
-  <div class="pub rv">
-    <div class="meta">Undergraduate Thesis</div>
-    <h3>Beyond Naive INT8: Adaptive Post-Training Compression for 3D Gaussian Splatting</h3>
-    <div class="sub">First author · <span class="ur">under review, ICCA 2026</span> · trained on Kaggle T4 · scenes: Garden, Bicycle, Vase</div>
+  <div class="pubgrid rv">
+    <div class="pub">
+      <div class="meta">Undergraduate Thesis</div>
+      <h3>Beyond Naive INT8: Adaptive Post-Training Compression for 3D Gaussian Splatting</h3>
+      <div class="sub">First author · <span class="ur">under review, ICCA 2026</span> · trained on Kaggle T4 · scenes: Garden, Bicycle, Vase</div>
+      <div class="sub" style="margin-top:10px">Four-stage pipeline — adaptive opacity pruning, outlier clipping, SH-degree reduction, quantization — applied to standard splatfacto checkpoints with no retraining.</div>
+    </div>
+    <div class="fig">
+      <img src="./assets/fig1_pareto.png" alt="Size vs PSNR Pareto frontier across Garden, Bicycle, and Vase scenes" loading="lazy" />
+      <div class="cap">Size–quality Pareto frontier across three scenes. Mixed precision holds quality while cutting ~74% of file size.</div>
+    </div>
+  </div>
+  <div class="stats rv">
+    <div><div class="n">~74%</div><div class="l">size reduction, no retraining (mixed precision, SH3)</div></div>
+    <div><div class="n">≤0.66 dB</div><div class="l">PSNR gap vs FP16 with Morton sub-group INT8</div></div>
+    <div><div class="n">15 dB</div><div class="l">the naive per-column INT8 collapse the paper diagnoses</div></div>
+    <div><div class="n">3 scenes</div><div class="l">MipNeRF-360 outdoor ×2 + self-captured indoor</div></div>
   </div>
 </section>
 
@@ -369,10 +404,34 @@
       <div class="row"><span>License</span><span>Open to relocate</span></div>
     </div>
   </div>
+  <div class="chips rv">
+    <span class="lbl">Toolbox</span>
+    <span class="chip">Python</span>
+    <span class="chip">PyTorch</span>
+    <span class="chip">numpy</span>
+    <span class="chip">TypeScript</span>
+    <span class="chip">Three.js</span>
+    <span class="chip">Nerfstudio</span>
+    <span class="chip">gsplat</span>
+    <span class="chip">COLMAP</span>
+    <span class="chip">Docker</span>
+    <span class="chip">GitHub Actions</span>
+    <span class="chip">Streamlit</span>
+    <span class="chip">Vite</span>
+    <span class="chip">pytest</span>
+    <span class="chip">ruff</span>
+  </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
 <footer id="contact" class="wrap">
+  <div class="chips rv" style="margin-bottom:44px">
+    <span class="lbl">Open to</span>
+    <span class="chip">MS supervision · Canada / Australia</span>
+    <span class="chip">SWE — 3D vision &amp; graphics</span>
+    <span class="chip">ML infrastructure &amp; tooling</span>
+    <span class="chip">research collaboration</span>
+  </div>
   <div class="foot">
     <div class="big rv">Let's build<br>something <a href="mailto:taifurrahman0606@gmail.com">small.</a></div>
     <div class="links rv">
