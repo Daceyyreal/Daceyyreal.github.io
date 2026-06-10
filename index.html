@@ -131,9 +131,13 @@
   .card p{margin-top:14px;font-size:.97rem;font-weight:300;color:#c4c1ba;flex:1}
   .card .stack{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.03em}
   .card .acts{margin-top:18px;display:flex;gap:18px;font-family:var(--mono);font-size:12px}
-  .card .acts a{color:var(--amber);border-bottom:1px solid transparent;transition:border .2s;padding-bottom:1px}
+  .card .acts a{color:var(--amber);border-bottom:1px solid transparent;transition:border .2s;padding-bottom:1px;position:relative;z-index:2}
   .card .acts a:hover{border-color:var(--amber)}
   .card .acts a::before{content:"→ "}
+  /* whole-card click target: the primary link stretches to cover the card;
+     the small action links sit above it (z-index:2) so they still work individually */
+  .card .acts a.stretch::after{content:"";position:absolute;inset:0;z-index:1}
+  .card{cursor:pointer}
 
   /* publication */
   .pub{
@@ -263,7 +267,7 @@
       <p>Training-free 3D Gaussian Splatting compression as a CLI + library. Mixed-precision and self-decodable sub-group INT8 — ~74% size reduction at sub-dB quality loss. The flagship.</p>
       <div class="stack">Python · Typer · numpy · plyfile · ruff + pytest CI · MIT</div>
       <div class="acts">
-        <a href="https://github.com/Daceyyreal/splat-slim" target="_blank" rel="noopener">repo</a>
+        <a class="stretch" href="https://github.com/Daceyyreal/splat-slim" target="_blank" rel="noopener">repo</a>
       </div>
     </div>
 
@@ -275,7 +279,7 @@
       <p>In-browser 3DGS compression demo. Load a splat, watch quality vs. size trade off in real time. No backend — it all runs on the GPU in your tab.</p>
       <div class="stack">Vite · TypeScript · Three.js · GitHub Pages</div>
       <div class="acts">
-        <a href="https://daceyyreal.github.io/splat-lab/" target="_blank" rel="noopener">launch</a>
+        <a class="stretch" href="https://daceyyreal.github.io/splat-lab/" target="_blank" rel="noopener">launch</a>
         <a href="https://github.com/Daceyyreal/splat-lab" target="_blank" rel="noopener">repo</a>
       </div>
     </div>
@@ -288,7 +292,7 @@
       <p>Dockerized, one-command COLMAP → Nerfstudio dataset prep. Point it at a folder of photos, get a training-ready scene. Published to ghcr, OCI-labelled.</p>
       <div class="stack">Python · Typer · COLMAP · Docker / ghcr · MIT</div>
       <div class="acts">
-        <a href="https://github.com/Daceyyreal/nerf-prep" target="_blank" rel="noopener">repo</a>
+        <a class="stretch" href="https://github.com/Daceyyreal/nerf-prep" target="_blank" rel="noopener">repo</a>
       </div>
     </div>
 
@@ -300,7 +304,7 @@
       <p>Chat with your papers, with per-(paper, page) citations so every answer points back to the source. Swappable LLM backend — Groq or Gemini.</p>
       <div class="stack">Python · sentence-transformers · PyMuPDF · Streamlit · MIT</div>
       <div class="acts">
-        <a href="https://github.com/Daceyyreal/paper-chat" target="_blank" rel="noopener">repo</a>
+        <a class="stretch" href="https://github.com/Daceyyreal/paper-chat" target="_blank" rel="noopener">repo</a>
       </div>
     </div>
 
