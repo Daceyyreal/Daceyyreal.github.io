@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- FILL: confirm display name (inferred from account emails). Replace if wrong. -->
 <title>Taifur Rahman — 3D Vision & ML Systems</title>
 <meta name="description" content="Final-year CS student building memory-efficient 3D Gaussian Splatting tooling and ML infrastructure." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +23,7 @@
     --serif:"Bricolage Grotesque",serif;
     --mono:"JetBrains Mono",ui-monospace,monospace;
   }
-  
+
   /* custom scrollbar */
   ::-webkit-scrollbar{width:8px;height:8px}
   ::-webkit-scrollbar-track{background:var(--ink)}
@@ -68,18 +67,13 @@
   @media(max-width:640px){nav .links{display:none}}
 
   /* hero */
-  header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px;padding-bottom:80px;scroll-snap-align:start}
+  header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px;padding-bottom:80px}
   .tag{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
   h1{font-size:clamp(2.9rem,9vw,6.4rem);font-weight:700;line-height:.96;letter-spacing:-.02em}
   h1 em{
     font-style:normal;
     color:var(--amber);
     text-shadow:0 0 10px rgba(74,222,128,0.3);
-    animation:dot-glow 2.5s infinite ease-in-out;
-  }
-  @keyframes dot-glow {
-    0%, 100% { text-shadow:0 0 10px rgba(74,222,128,0.35); opacity:0.85; }
-    50% { text-shadow:0 0 22px rgba(74,222,128,0.7), 0 0 35px rgba(74,222,128,0.3); opacity:1; }
   }
   .lede{max-width:640px;margin-top:22px;font-size:clamp(1.05rem,2vw,1.35rem);font-weight:300;color:#cfccc4}
   .lede b{font-weight:600;color:var(--bone)}
@@ -92,7 +86,7 @@
   .spec .v a{border-bottom:1px solid var(--amber);color:var(--amber)}
 
   /* sections */
-  section.wrap{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:60px 28px;position:relative}
+  section.wrap{padding:110px 28px;position:relative}
   .shead{display:flex;align-items:baseline;gap:16px;margin-bottom:clamp(28px, 4vw, 40px)}
   .shead .no{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.1em}
   .shead h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;letter-spacing:-.01em}
@@ -123,11 +117,6 @@
     border-radius:50%;
     margin-right:6px;
     vertical-align:middle;
-    animation:live-dot-pulse 1.8s infinite ease-in-out;
-  }
-  @keyframes live-dot-pulse {
-    0%, 100% { transform: scale(0.85); opacity: 0.6; }
-    50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px var(--cool); }
   }
   .card p{margin-top:14px;font-size:.97rem;font-weight:300;color:#c4c1ba;flex:1}
   .card .stack{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.03em}
@@ -220,14 +209,20 @@
   .about .side .row span:last-child{color:var(--bone)}
 
   /* footer */
-  footer.wrap{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--line);margin-top:0;padding:60px 28px}
+  footer.wrap{border-top:1px solid var(--line);margin-top:0;padding:110px 28px}
+
+  /* mobile section spacing */
+  @media(max-width:640px){
+    section.wrap{padding:70px 20px}
+    footer.wrap{padding:70px 20px}
+  }
 
   /* section dot nav */
   .dot-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:14px}
   .dot-nav a{display:block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--mute);background:transparent;transition:background .3s,border-color .3s,transform .3s}
   .dot-nav a:hover{border-color:var(--amber);transform:scale(1.3)}
   .dot-nav a.active{background:var(--amber);border-color:var(--amber)}
-  @media(max-width:640px){.dot-nav{right:12px;gap:10px}.dot-nav a{width:8px;height:8px}}
+  @media(max-width:640px){.dot-nav{display:none}}
   .foot .big{font-size:clamp(2.6rem,8vw,5.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.02}
   .foot .big a{color:var(--amber);transition:text-shadow .25s}
   .foot .big a:hover{text-shadow:0 0 24px rgba(74,222,128,.45)}
@@ -272,7 +267,6 @@
 
 <header id="hero" class="wrap">
   <div class="tag rv">3D Vision · ML Systems · Tooling</div>
-  <!-- FILL: confirm name -->
   <h1 class="rv">Taifur<br>Rahman<em>.</em></h1>
   <p class="lede rv">Final-year CS at IUBAT, Dhaka. I build <b>memory-efficient 3D Gaussian Splatting</b> and the ML tooling around it — compression that ships, pipelines that run with one command.</p>
   <div class="spec rv">
@@ -345,10 +339,8 @@
 <!-- ============ RESEARCH ============ -->
 <section id="research" class="wrap">
   <div class="shead rv"><span class="no">02</span><h2>Research</h2><span class="rule"></span></div>
-  <!-- When ICCA publishes: change <div class="pub rv"> to
-       <a class="pub rv" href="./paper.pdf" target="_blank" rel="noopener"> ... </a>,
-       uncomment the a.pub CSS above, add <div class="pubcta">Read paper (PDF) ↗</div>,
-       remove paper.pdf from .gitignore, and commit paper.pdf. -->
+  <!-- When ICCA publishes: link the card to ./paper.pdf (see the commented
+       a.pub CSS above), remove paper.pdf from .gitignore, and commit paper.pdf. -->
   <div class="pubgrid rv">
     <div class="pub">
       <div class="meta">Undergraduate Thesis</div>
@@ -357,7 +349,7 @@
       <div class="sub" style="margin-top:10px">Four-stage pipeline — adaptive opacity pruning, outlier clipping, SH-degree reduction, quantization — applied to standard splatfacto checkpoints with no retraining.</div>
     </div>
     <div class="fig">
-      <img src="./assets/fig1_pareto.png" alt="Size vs PSNR Pareto frontier across Garden, Bicycle, and Vase scenes" loading="lazy" />
+      <img src="./assets/fig1_pareto.png" alt="Size vs PSNR Pareto frontier across Garden, Bicycle, and Vase scenes" loading="lazy" onerror="this.closest('.fig').style.display='none'" />
       <div class="cap">Size–quality Pareto frontier across three scenes. Mixed precision holds quality while cutting ~74% of file size.</div>
     </div>
   </div>
@@ -373,7 +365,7 @@
 <section id="writing" class="wrap">
   <div class="shead rv"><span class="no">03</span><h2>Writing</h2><span class="rule"></span></div>
   <div class="posts rv">
-    <a class="post" href="./blog/int8-collapse-morton-fix.html">
+    <a class="post" href="./writing/int8-collapse-morton-fix.html">
       <div class="idx">001</div>
       <div class="body">
         <h3>Why per-column INT8 collapses 3DGS to 15 dB — and how Morton ordering fixes it</h3>
@@ -381,7 +373,7 @@
       </div>
       <div class="go">read →</div>
     </a>
-    <a class="post" href="./blog/finetune-zero-update-bug.html">
+    <a class="post" href="./writing/finetune-zero-update-bug.html">
       <div class="idx">002</div>
       <div class="body">
         <h3>The fine-tune that silently did nothing: a zero-update negative result</h3>
@@ -407,7 +399,7 @@
       <div class="row"><span>Field</span><span>Computer Science</span></div>
       <div class="row"><span>Year</span><span>Final</span></div>
       <div class="row"><span>Languages</span><span>Python, TS, C++</span></div>
-      <div class="row"><span>License</span><span>Open to relocate</span></div>
+      <div class="row"><span>Status</span><span>Open to relocate</span></div>
     </div>
   </div>
   <div class="chips rv">
@@ -453,22 +445,25 @@
 </footer>
 
 <script>
-// soft gaussian field
+// soft gaussian field (static single frame when the user prefers reduced motion)
 (function(){
   const c=document.getElementById('field'),x=c.getContext('2d');
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let w,h,pts,raf;
   const N=Math.min(70, Math.floor((window.innerWidth*window.innerHeight)/26000));
-  
-  // Track mouse coordinates for gravity attraction
+
+  // Track mouse coordinates for gravity attraction (animation mode only)
   let mouse = { x: null, y: null };
-  addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX * devicePixelRatio;
-    mouse.y = e.clientY * devicePixelRatio;
-  });
-  addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
+  if(!reduced){
+    addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX * devicePixelRatio;
+      mouse.y = e.clientY * devicePixelRatio;
+    });
+    addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+  }
 
   function size(){w=c.width=innerWidth*devicePixelRatio;h=c.height=innerHeight*devicePixelRatio;}
   function init(){
@@ -481,46 +476,48 @@
       amber:Math.random()<.45
     });}
   }
-  function draw(){
+  function render(){
     x.clearRect(0,0,w,h);
     x.globalCompositeOperation='lighter';
     for(const p of pts){
-      // Gravity physics towards mouse
-      if(mouse.x !== null && mouse.y !== null){
-        const dx = mouse.x - p.x;
-        const dy = mouse.y - p.y;
-        const dist = Math.hypot(dx, dy);
-        if(dist < 360 * devicePixelRatio){
-          const force = (1 - dist / (360 * devicePixelRatio)) * 0.035 * devicePixelRatio;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
+      if(!reduced){
+        // Gravity physics towards mouse
+        if(mouse.x !== null && mouse.y !== null){
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.hypot(dx, dy);
+          if(dist < 360 * devicePixelRatio){
+            const force = (1 - dist / (360 * devicePixelRatio)) * 0.035 * devicePixelRatio;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
         }
-      }
-      // Apply slight resistance to prevent speed inflation
-      p.vx *= 0.985;
-      p.vy *= 0.985;
-      
-      // enforce speed limits to keep animation smooth
-      const speed = Math.hypot(p.vx, p.vy);
-      const maxSpeed = 0.45 * devicePixelRatio;
-      if(speed > maxSpeed){
-        p.vx = (p.vx / speed) * maxSpeed;
-        p.vy = (p.vy / speed) * maxSpeed;
-      }
+        // Apply slight resistance to prevent speed inflation
+        p.vx *= 0.985;
+        p.vy *= 0.985;
 
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<-80)p.x=w+80;if(p.x>w+80)p.x=-80;
-      if(p.y<-80)p.y=h+80;if(p.y>h+80)p.y=-80;
+        // enforce speed limits to keep animation smooth
+        const speed = Math.hypot(p.vx, p.vy);
+        const maxSpeed = 0.45 * devicePixelRatio;
+        if(speed > maxSpeed){
+          p.vx = (p.vx / speed) * maxSpeed;
+          p.vy = (p.vy / speed) * maxSpeed;
+        }
+
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<-80)p.x=w+80;if(p.x>w+80)p.x=-80;
+        if(p.y<-80)p.y=h+80;if(p.y>h+80)p.y=-80;
+      }
       const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
       const col=p.amber?'74,222,128':'111,180,201';
       g.addColorStop(0,'rgba('+col+','+p.a+')');
       g.addColorStop(1,'rgba('+col+',0)');
       x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();
     }
-    raf=requestAnimationFrame(draw);
+    if(!reduced) raf=requestAnimationFrame(render);
   }
-  size();init();draw();
-  addEventListener('resize',()=>{cancelAnimationFrame(raf);size();init();draw();});
+  size();init();render();
+  addEventListener('resize',()=>{if(raf)cancelAnimationFrame(raf);size();init();render();});
 })();
 
 // scroll reveal
@@ -551,65 +548,6 @@
   sectionEls.forEach(el => { if(el) io.observe(el); });
   // set first dot active on load
   dots[0].classList.add('active');
-})();
-
-// one-section-per-scroll (wheel + keys), boundary-aware so tall sections stay readable
-(function(){
-  // Skip on touch devices and when the user prefers reduced motion.
-  if (window.matchMedia('(pointer: coarse)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const sections = ['hero','work','research','writing','about','contact']
-    .map(id => document.getElementById(id)).filter(Boolean);
-  if (!sections.length) return;
-
-  const EDGE = 8;        // px tolerance at a section's top/bottom edge
-  let locked = false;    // ignore input while a snap animation runs
-
-  // Scroller-agnostic: rely on viewport-relative rects, not window.scrollY,
-  // so it works whether the document or an inner element is the scroll container.
-  function currentIndex(){
-    let idx = 0;
-    for (let i = 0; i < sections.length; i++){
-      if (sections[i].getBoundingClientRect().top <= 2) idx = i;
-    }
-    return idx;
-  }
-  function goTo(i){
-    i = Math.max(0, Math.min(sections.length - 1, i));
-    locked = true;
-    sections[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(() => { locked = false; }, 750);
-  }
-
-  window.addEventListener('wheel', (e) => {
-    if (locked){ e.preventDefault(); return; }
-    const idx = currentIndex();
-    const rect = sections[idx].getBoundingClientRect();
-    if (e.deltaY > 0){
-      // more of this section still below the fold? let it scroll normally
-      if (rect.bottom > window.innerHeight + EDGE) return;
-      e.preventDefault();
-      goTo(idx + 1);
-    } else if (e.deltaY < 0){
-      if (rect.top < -EDGE) return; // more of this section above
-      e.preventDefault();
-      goTo(idx - 1);
-    }
-  }, { passive: false });
-
-  window.addEventListener('keydown', (e) => {
-    if (locked) return;
-    const idx = currentIndex();
-    const rect = sections[idx].getBoundingClientRect();
-    if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)){
-      if (rect.bottom > window.innerHeight + EDGE) return;
-      e.preventDefault(); goTo(idx + 1);
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)){
-      if (rect.top < -EDGE) return;
-      e.preventDefault(); goTo(idx - 1);
-    }
-  });
 })();
 </script>
 </body>
