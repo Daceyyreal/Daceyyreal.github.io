@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The fine-tuning run that changed nothing — Taifur Rahman</title>
+<meta name="description" content="Why a perfectly healthy-looking training loop produced zero parameter updates after pruning — and why I think the null result is worth publishing. From bui" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#090d0b;
+    --bg-2:#0e1411;
+    --panel:#121a15;
+    --line:#1d2722;
+    --line-2:#28362f;
+    --text:#e8efe9;
+    --soft:#c2cdc6;
+    --mute:#7e8c85;
+    --dim:#54625b;
+    --accent:#6fd79e;
+    --accent-2:#54c187;
+    --accent-soft:rgba(84,193,135,.13);
+    --serif:"Bricolage Grotesque",serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--serif);
+    font-weight:330;line-height:1.7;-webkit-font-smoothing:antialiased;font-size:17.5px}
+  ::selection{background:var(--accent);color:var(--bg)}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line-2);transition:border-color .2s}
+  a:hover{border-color:var(--accent)}
+
+  .glow{position:fixed;top:-25vh;left:50%;transform:translateX(-50%);
+    width:120vw;height:80vh;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 0%,var(--accent-soft),transparent 62%)}
+
+  .wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:0 28px}
+
+  /* top bar */
+  .bar{display:flex;justify-content:space-between;align-items:center;
+    padding:26px 0 0;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+  .bar a{border:none;color:var(--mute)}
+  .bar a:hover{color:var(--accent)}
+  .bar .back::before{content:"← "}
+  .bar .home{color:var(--soft)}
+  .bar .home span{color:var(--accent)}
+
+  /* article head */
+  header.post{padding:64px 0 40px;border-bottom:1px solid var(--line);margin-bottom:44px}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  h1{font-size:clamp(2rem,5.2vw,3rem);font-weight:600;line-height:1.08;letter-spacing:-.02em}
+  .dek{margin-top:24px;font-size:1.12rem;font-weight:300;color:var(--mute);line-height:1.6}
+  .dek em{font-style:normal}
+  .dek a{color:var(--soft)}
+
+  article{padding-bottom:30px}
+  article h2{font-size:1.45rem;font-weight:600;letter-spacing:-.01em;margin:52px 0 16px;line-height:1.25}
+  article h2::before{content:"";display:inline-block;width:18px;height:2px;background:var(--accent);
+    vertical-align:middle;margin-right:13px;transform:translateY(-4px)}
+  article p{margin:0 0 20px;color:var(--soft);font-weight:330}
+  article strong,article b{color:var(--text);font-weight:600}
+  article em{color:var(--soft)}
+
+  /* lists */
+  article ul,article ol{margin:0 0 22px;padding-left:4px;list-style:none;counter-reset:li}
+  article li{position:relative;padding-left:26px;margin-bottom:11px;color:var(--soft)}
+  article ul li::before{content:"";position:absolute;left:4px;top:.62em;width:6px;height:6px;
+    background:var(--accent-2);border-radius:50%}
+  article ol li{counter-increment:li}
+  article ol li::before{content:counter(li);position:absolute;left:0;top:.05em;
+    font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);
+    border:1px solid var(--line-2);border-radius:50%;width:19px;height:19px;
+    display:flex;align-items:center;justify-content:center}
+  article ol li{padding-left:32px}
+
+  /* code */
+  code{font-family:var(--mono);font-size:.84em;background:var(--bg-2);
+    border:1px solid var(--line);border-radius:5px;padding:1.5px 6px;color:var(--accent);
+    white-space:nowrap}
+
+  /* tables */
+  .tw{overflow-x:auto;margin:0 0 26px;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:14.5px}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  thead th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--accent);background:var(--bg-2)}
+  tbody td{font-family:var(--mono);font-size:13px;color:var(--soft)}
+  tbody td:first-child{font-weight:500;color:var(--text)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--bg-2)}
+
+  /* trailing note */
+  article hr{border:none;border-top:1px solid var(--line);margin:44px 0 28px}
+  article hr + p{font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.7}
+  article hr + p em{color:var(--mute)}
+  article hr + p a{color:var(--accent)}
+
+  footer.foot{border-top:1px solid var(--line);margin-top:10px;padding:34px 0 70px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+    font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+  footer.foot a{border:none;color:var(--mute)}
+  footer.foot a:hover{color:var(--accent)}
+
+  @media(max-width:600px){
+    body{font-size:16.5px}
+    .wrap{padding:0 20px}
+    header.post{padding:44px 0 30px;margin-bottom:34px}
+    article h2{margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+  <div class="bar">
+    <a class="back" href="../">Taifur Rahman</a>
+    <a class="home" href="../#writing">DACE<span>//</span>writing</a>
+  </div>
+
+  <header class="post">
+    <div class="kicker">splat-slim · engineering note</div>
+    <h1>The fine-tuning run that changed nothing</h1>
+  </header>
+
+  <article>
+    <p class="dek"><em>Why a perfectly healthy-looking training loop produced zero parameter updates after pruning — and why I think the null result is worth publishing. From building <a href="https://github.com/Daceyyreal/splat-slim">splat-slim</a>, a training-free compressor for 3D Gaussian Splatting.</em></p>
+<p>The run finished without a single error. The loss curve looked plausible. The checkpoints saved. And the model was, byte for byte, exactly the same as when I started.</p>
+<p>This is the story of a bug that doesn&rsquo;t crash — it just quietly wastes your time and, worse, quietly corrupts your conclusions. I&rsquo;m writing it up because the setup that triggers it is one of the most common moves in model compression, and because I think we under-report this kind of failure.</p>
+<h2>The &ldquo;obvious&rdquo; recovery step</h2>
+<p>3D Gaussian Splatting represents a scene as millions of Gaussians. A simple, effective way to shrink a trained model is to <strong>prune</strong>: drop the Gaussians that contribute least — the near-transparent ones below some opacity threshold. Pruning is cheap and removes a large fraction of the primitives, but it costs a little quality, because even low-opacity Gaussians were doing <em>some</em> work.</p>
+<p>So the textbook next step is to <strong>fine-tune</strong>: let the survivors train for a short while to absorb the work the pruned ones used to do. Prune, then fine-tune to recover. Compression papers do it constantly. I expected a small, free quality bump.</p>
+<h2>The symptom: nothing moved</h2>
+<p>I pruned, kept training, and watched the metrics. PSNR didn&rsquo;t improve. That alone isn&rsquo;t alarming — maybe the gains were just small. What <em>was</em> alarming: PSNR didn&rsquo;t change at all. Not up, not down, not jittering the way a live optimization does. It sat flat across the entire fine-tune, identical to three decimal places.</p>
+<p>A flat-line metric across thousands of iterations is not &ldquo;the model converged.&rdquo; It&rsquo;s &ldquo;the model isn&rsquo;t moving.&rdquo; Those are very different diagnoses, and the second one means something in the loop is broken.</p>
+<h2>Ruling things out</h2>
+<p>I went down the usual list. Learning rate non-zero? Yes. Loss actually computed on the right tensors? Yes. Gradients flowing — were they <code>None</code> or all zeros? They were populated and nonzero. The data pipeline was feeding real frames. By every local check, the loop looked like it was training.</p>
+<p>So I did the one test that actually settles it: I snapshotted a parameter tensor before the fine-tune and compared it after. <strong>Identical.</strong> The gradients existed, the optimizer&rsquo;s <code>step()</code> was being called, and the parameters the renderer actually used never changed by a single bit.</p>
+<h2>The cause: the optimizer was tracking ghosts</h2>
+<p>Here&rsquo;s what was happening. Pruning rebuilds the parameter tensors at the new, smaller Gaussian count — the means, scales, rotations, opacities, and spherical-harmonic coefficients all go from N rows to fewer. But an Adam-style optimizer doesn&rsquo;t just hold a learning rate; it holds <strong>per-parameter state</strong>: a first- and second-moment buffer shaped exactly like each parameter, plus references to the specific parameter objects it&rsquo;s responsible for.</p>
+<p>When I pruned the model outside the framework&rsquo;s own densification machinery, those two things fell out of sync. The optimizer was still pointing at the <em>pre-prune</em> parameters, and its moment buffers were still shaped for the <em>old</em> Gaussian count. The forward and backward passes used the new, pruned tensors and dutifully filled their gradients — but <code>optimizer.step()</code> was operating on a set of tensors the renderer no longer used. The updates landed nowhere visible. The dimension mismatch between the stale optimizer state and the pruned parameters was the smoking gun.</p>
+<p>In the splatting frameworks, this is a particularly easy trap, because densification and pruning <em>during</em> normal training are handled by a dedicated strategy that carefully edits the optimizer state in lockstep — slicing the moment buffers with the same mask it uses on the parameters. Do your pruning through that path and everything stays aligned. Do it as a standalone post-processing step, as is natural when you&rsquo;re compressing an already-trained model, and you silently bypass all of that bookkeeping.</p>
+<h2>Why this one is so dangerous</h2>
+<p>Most bugs announce themselves. This one passes every surface check:</p>
+<ul>
+<li>It doesn&rsquo;t raise — no shape error, because the mismatch is between optimizer state and parameters, not inside the forward pass.</li>
+<li>The loop runs to completion and saves checkpoints.</li>
+<li>Gradients are real, so a <code>grad is not None</code> check passes.</li>
+<li>If you only watch a loss that&rsquo;s dominated by other terms, or you don&rsquo;t run long enough to expect visible movement, the flat line looks like &ldquo;already converged.&rdquo;</li>
+</ul>
+<p>The only reliable detector is the blunt one: <strong>assert that your parameters actually changed.</strong> Snapshot a tensor, train, diff it. If you&rsquo;ve done any structural surgery on a model — pruning, growing, re-initializing, splitting — also check that your optimizer&rsquo;s parameter groups reference the <em>same tensor objects</em> the model now uses, and that its state shapes match the current parameters. Those two assertions would have saved me a day.</p>
+<h2>Why publish a failure</h2>
+<p>It would have been easy to fix this quietly, get my recovery numbers, and never mention it. I didn&rsquo;t, for two reasons.</p>
+<p>First, <strong>reproducibility</strong>. Prune-then-fine-tune is everywhere in compression work, and this failure mode is silent. A run that no-ops doesn&rsquo;t look like a broken run — it looks like &ldquo;fine-tuning didn&rsquo;t help much.&rdquo; If someone reports that fine-tuning gives little recovery, but their fine-tune was secretly a no-op, the conclusion is contaminated and nobody can tell from the outside. Documenting the trap and how to detect it is the kind of thing that lets other people trust — or correctly distrust — a result.</p>
+<p>Second, it sharpened a design decision. splat-slim is deliberately <strong>training-free</strong>: it operates on the exported <code>.ply</code> as a pure post-processing pass, with no optimizer in the loop at all. Part of the case for that design is exactly this — once a model is trained and you&rsquo;re compressing it, re-entering the training machinery is fragile in ways that have nothing to do with your compression idea. A pass that never touches the optimizer can&rsquo;t desynchronize it.</p>
+<p>Negative and null results are real findings. A failure mode that silently produces zero updates, in a step half the field runs, is worth a paragraph in the record — not a deletion from the notebook.</p>
+<h2>Takeaways</h2>
+<ol>
+<li><strong>A flat metric is a diagnosis, not a non-event.</strong> &ldquo;Didn&rsquo;t improve&rdquo; and &ldquo;didn&rsquo;t move at all&rdquo; are different failures; the second usually means the update isn&rsquo;t landing.</li>
+<li><strong>After any structural change to a model, the optimizer is suspect.</strong> Its state is shaped for the old model until you rebuild or reindex it. Assert that parameter-group identities and state shapes match the live parameters.</li>
+<li><strong>The cheapest correctness test is a before/after diff of the weights.</strong> If they&rsquo;re identical after &ldquo;training,&rdquo; nothing else you measured matters.</li>
+<li><strong>Report the no-ops.</strong> Silent failures in common pipeline steps are exactly the results that protect everyone else&rsquo;s conclusions.</li>
+</ol>
+<hr />
+<p><em>Built on <a href="https://github.com/nerfstudio-project/nerfstudio">Nerfstudio</a> and <a href="https://github.com/nerfstudio-project/gsplat">gsplat</a>. If you&rsquo;ve hit the same wall from a different angle, I&rsquo;d like to hear about it.</em></p>
+  </article>
+
+  <footer class="foot">
+    <a href="../">← back to portfolio</a>
+    <span>github.com/Daceyyreal</span>
+  </footer>
+</div>
+</body>
+</html>

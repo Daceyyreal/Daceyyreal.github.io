@@ -1,3 +1,7 @@
 # Keep the thesis PDF private during double-blind review — do NOT commit until
 # ICCA publishes (an unlinked file on GitHub Pages is still publicly downloadable).
 paper.pdf
+
+# stray local files - never publish
+pdfgear_setup_v2.1.16.exe
+diag.txt
