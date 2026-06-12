@@ -102,6 +102,11 @@
   .spec .k{color:var(--dim);letter-spacing:.05em}
   .spec .v{color:var(--bone);margin-top:4px}
   .spec .v a{border-bottom:1px solid var(--amber);color:var(--amber)}
+  .heroacts{margin-top:34px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .btn{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--amber);padding:14px 24px;border-radius:999px;transition:transform .2s ease,box-shadow .2s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,222,128,.25)}
+  .btnghost{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
+  .btnghost:hover{color:var(--amber);border-color:var(--amber)}
 
   /* sections */
   section.wrap{padding:110px 28px;position:relative}
@@ -294,6 +299,10 @@
     <div><div class="k">PAPER</div><div class="v">ICCA 2026 · under review</div></div>
     <div><div class="k">SHIPPED</div><div class="v">4 tools · 2 writeups</div></div>
     <div><div class="k">GITHUB</div><div class="v"><a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">@Daceyyreal</a></div></div>
+  </div>
+  <div class="heroacts rv">
+    <a class="btn" href="#work">View the work ↓</a>
+    <a class="btnghost" href="./cv.pdf" target="_blank" rel="noopener">download CV ↗</a>
   </div>
 </header>
 

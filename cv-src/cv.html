@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Taifur Rahman — CV</title>
+<!--
+  Source for /cv.pdf. Rebuild with headless Edge:
+  msedge --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=15000
+         --print-to-pdf="F:\Daceyyreal.github.io\cv.pdf" "file:///F:/Daceyyreal.github.io/cv-src/cv.html"
+  Rules: exactly two font families (Bricolage Grotesque + JetBrains Mono — wrap file/ext
+  tokens in <code> so nothing falls back to a third font), one green accent, neutral grays.
+-->
+<style>
+/* Full local TTFs (fonts/ dir) — Google Fonts web subsets drop U+2192 →, which
+   leaks a third fallback font into the PDF. Do not switch back to @import. */
+@font-face{font-family:'Bricolage Grotesque';font-weight:400;src:url('fonts/BricolageGrotesque-400.ttf')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:600;src:url('fonts/BricolageGrotesque-600.ttf')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700;src:url('fonts/BricolageGrotesque-700.ttf')}
+@font-face{font-family:'JetBrains Mono';font-weight:400;src:url('fonts/JetBrainsMono-400.ttf')}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url('fonts/JetBrainsMono-500.ttf')}
+@font-face{font-family:'JetBrains Mono';font-weight:700;src:url('fonts/JetBrainsMono-700.ttf')}
+
+@page{size:A4;margin:13mm 15mm 14mm}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#15171c;      /* headings */
+  --body:#2f323a;     /* body text */
+  --mute:#6b7077;     /* secondary */
+  --accent:#166534;   /* single professional accent (deep green, ties to site brand) */
+  --hair:#dcdfe2;     /* hairlines / separators */
+}
+body{font-family:'Bricolage Grotesque',serif;font-size:9.6pt;line-height:1.5;color:var(--body)}
+.mono{font-family:'JetBrains Mono',monospace}
+code{font-family:'JetBrains Mono',monospace;font-size:8.6pt}
+a{color:inherit;text-decoration:none}
+
+/* header */
+.head{display:flex;justify-content:space-between;align-items:flex-start}
+h1{font-size:25pt;font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.05}
+h1 .dot{color:var(--accent)}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:8pt;color:var(--accent);letter-spacing:.08em;margin-top:7pt}
+.contact{font-family:'JetBrains Mono',monospace;font-size:7.6pt;text-align:right;line-height:1.7;padding-top:3pt}
+.contact .dim{color:var(--mute)}
+.contact .sep{color:var(--hair)}
+
+/* summary */
+.summary{margin-top:13pt;max-width:100%}
+
+/* sections */
+h2{font-family:'JetBrains Mono',monospace;font-size:8pt;font-weight:500;color:var(--accent);
+   letter-spacing:.42em;margin:15pt 0 4pt;padding-bottom:4pt;border-bottom:.6pt solid var(--hair)}
+
+/* rows with right-aligned meta */
+.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:6pt}
+.row .l{font-weight:600;color:var(--ink)}
+.row .r{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
+.sub{font-size:9pt;color:var(--mute)}
+.fact{font-family:'JetBrains Mono',monospace;font-size:8pt;color:var(--body);margin-top:3pt}
+
+/* publication */
+.pub-title{font-weight:600;color:var(--ink)}
+.badge{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--accent);white-space:nowrap}
+.cite{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);margin-top:2pt}
+.points{margin-top:5pt}
+.points p{margin-top:4pt}
+b{font-weight:700;color:var(--body)}
+
+/* projects */
+.proj{margin-top:7pt}
+.proj .name{font-family:'JetBrains Mono',monospace;font-size:9.4pt;font-weight:700;color:var(--ink)}
+.proj .tech{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
+.proj .tech a{color:var(--accent)}
+.proj p{margin-top:2pt}
+
+/* skills */
+.skill{display:grid;grid-template-columns:96pt 1fr;gap:0 10pt;margin-top:5pt;align-items:baseline}
+.skill .k{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--accent);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div>
+    <h1>Taifur Rahman<span class="dot">.</span></h1>
+    <div class="kicker">CS UNDERGRADUATE — 3D VISION &amp; ML SYSTEMS</div>
+  </div>
+  <div class="contact">
+    taifurrahman0606@gmail.com<br>
+    <span class="dim">+880 1864 245617 <span class="sep">·</span> Dhaka, Bangladesh</span><br>
+    github.com/Daceyyreal <span class="sep">·</span> daceyyreal.github.io
+  </div>
+</div>
+
+<p class="summary">Final-year Computer Science undergraduate focused on memory-efficient 3D Gaussian Splatting. Built and released four open-source tools across 3D reconstruction, model compression, and ML tooling, plus a full multi-scene research pipeline. Comfortable taking a problem from experimentation through to a tested, documented release.</p>
+
+<h2>EDUCATION</h2>
+<div class="row">
+  <span class="l">International University of Business Agriculture &amp; Technology (IUBAT)</span>
+  <span class="r">Dhaka, BD</span>
+</div>
+<div class="row" style="margin-top:1pt">
+  <span class="sub">B.Sc. in Computer Science &amp; Engineering (BCSE)</span>
+  <span class="r">Expected 2027</span>
+</div>
+<div class="fact">CGPA 3.4 / 4.00</div>
+
+<h2>PUBLICATIONS</h2>
+<div class="row">
+  <span class="l pub-title">Beyond Naive INT8: Adaptive Post-Training Compression for 3D Gaussian Splatting</span>
+  <span class="badge">· UNDER REVIEW</span>
+</div>
+<div class="cite">T. Rahman. ICCA 2026 (ACM).</div>
+<div class="points">
+  <p>Designed a training-free post-processing pipeline (adaptive pruning → outlier cleaning → spherical-harmonic reduction → mixed-precision quantization) achieving a <b>74% mean size reduction</b> across three scenes at a 1.3–2.7 dB PSNR cost.</p>
+  <p>Diagnosed a per-column INT8 quantization collapse (~15 dB uniform) and recovered to within <b>0.1–0.7 dB of FP16</b> using Morton Z-order sub-group ranges — a positive, reproducible quantization finding.</p>
+  <p>Isolated a zero-update failure mode in post-pruning fine-tuning (optimizer-state dimension mismatch), documented as a reproducible negative result.</p>
+  <p>Ran the full multi-scene pipeline on a single 16 GB Kaggle T4 GPU using the Nerfstudio / gsplat ecosystem.</p>
+</div>
+
+<h2>PROJECTS</h2>
+<div class="proj">
+  <div class="row" style="margin-top:0">
+    <span class="name">splat-slim</span>
+    <span class="tech">Python · Typer · NumPy · plyfile · CI · MIT</span>
+  </div>
+  <p>Training-free CLI / library that compresses trained 3DGS <code>.ply</code> files ~74% with &lt;3 dB PSNR loss; ships self-decodable Morton-ordered sub-group INT8 with per-group ranges in a sidecar <code>.meta.npz</code>.</p>
+</div>
+<div class="proj">
+  <div class="row" style="margin-top:0">
+    <span class="name">splat-lab</span>
+    <span class="tech">Vite · TypeScript · Three.js · <a href="https://daceyyreal.github.io/splat-lab/">live demo</a></span>
+  </div>
+  <p>In-browser, real-time demo of the compression pipeline — opacity / scale / SH / quantization sliders with an honest on-screen size readout; a TypeScript port of the splat-slim math.</p>
+</div>
+<div class="proj">
+  <div class="row" style="margin-top:0">
+    <span class="name">nerf-prep</span>
+    <span class="tech">Python · Typer · Docker · GitHub Actions → GHCR</span>
+  </div>
+  <p>One-command Dockerized COLMAP → Nerfstudio dataset prep: automatic matcher selection by capture type, GPU/CPU auto-detect, headless operation, input validation, and a registration-rate summary.</p>
+</div>
+<div class="proj">
+  <div class="row" style="margin-top:0">
+    <span class="name">paper-chat</span>
+    <span class="tech">Python · Groq / Gemini · sentence-transformers · PyMuPDF · Streamlit</span>
+  </div>
+  <p>RAG over a PDF / arXiv library with per-(paper, page) citations, cross-paper questions, and grounded-only answers (declines when sources don't cover the question).</p>
+</div>
+
+<h2>TECHNICAL SKILLS</h2>
+<div class="skill"><span class="k">LANGUAGES</span><span>Python, C++, TypeScript / JavaScript, Bash, LaTeX</span></div>
+<div class="skill"><span class="k">ML &amp; 3D VISION</span><span>3D Gaussian Splatting, NeRF, Nerfstudio, gsplat, PyTorch, COLMAP, model quantization, RAG &amp; embeddings (sentence-transformers)</span></div>
+<div class="skill"><span class="k">TOOLS &amp; INFRA</span><span>Docker, Git, GitHub Actions (CI/CD), Linux, Three.js, Vite, Streamlit</span></div>
+
+</body>
+</html>
