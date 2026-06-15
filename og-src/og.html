@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og</title>
+<!--
+  Source for /assets/og.png (1200x630). Rebuild with headless Edge:
+  msedge --headless --disable-gpu --window-size=1200,630 --hide-scrollbars
+         --screenshot="F:\Daceyyreal.github.io\assets\og.png" "file:///F:/Daceyyreal.github.io/og-src/og.html"
+  Fonts load from ../cv-src/fonts (same two families as the site + CV).
+-->
+<style>
+@font-face{font-family:'Bricolage';font-weight:700;src:url('../cv-src/fonts/BricolageGrotesque-700.ttf')}
+@font-face{font-family:'JBMono';font-weight:700;src:url('../cv-src/fonts/JetBrainsMono-700.ttf')}
+@font-face{font-family:'JBMono';font-weight:400;src:url('../cv-src/fonts/JetBrainsMono-400.ttf')}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{
+  background:
+    radial-gradient(115% 125% at 12% 6%, rgba(74,222,128,.22) 0%, rgba(74,222,128,.05) 32%, rgba(6,12,10,0) 56%),
+    linear-gradient(135deg,#0a2017 0%,#07110c 42%,#05080a 100%);
+  color:#efece4;
+  font-family:'JBMono',monospace;
+  padding:74px 80px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.kicker{font-weight:700;font-size:24px;letter-spacing:.17em;color:#4ade80;text-transform:uppercase}
+.name{font-family:'Bricolage',sans-serif;font-weight:700;font-size:104px;line-height:1;letter-spacing:-.02em;color:#efece4;margin-top:24px;white-space:nowrap}
+.name .dot{color:#4ade80}
+.tag{font-weight:400;font-size:27px;line-height:1.45;color:#c2cabd;margin-top:28px}
+.btn{display:inline-block;margin-top:30px;font-weight:700;font-size:21px;letter-spacing:.12em;text-transform:uppercase;color:#06240f;background:#4ade80;padding:15px 26px;border-radius:8px}
+.foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.10);padding-top:22px;font-size:22px}
+.foot .l{color:#4ade80}
+.foot .r{color:#8a938c}
+.top{flex:1 1 auto}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="kicker">3D Vision · ML Systems · Tooling</div>
+  <div class="name">Md. Taifur Hossain<span class="dot">.</span></div>
+  <div class="tag">Memory-efficient 3D Gaussian Splatting —<br>compression that ships, pipelines that run with one command.</div>
+  <a class="btn">View the work ↗</a>
+</div>
+<div class="foot"><span class="l">daceyyreal.github.io</span><span class="r">github.com/Daceyyreal</span></div>
+</body>
+</html>
