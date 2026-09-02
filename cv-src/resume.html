@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Md. Taifur Hossain — Resume</title>
+<!--
+  Source for /resume.pdf (job / internship version). Rebuild with headless Edge:
+  msedge --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=15000
+         --print-to-pdf="F:\Daceyyreal.github.io\resume.pdf" "file:///F:/Daceyyreal.github.io/cv-src/resume.html"
+  Same rules as cv.html: exactly two font families (Bricolage Grotesque + JetBrains Mono,
+  local TTFs only), one green accent. cv.html = academic CV; this = engineering resume.
+-->
+<style>
+@font-face{font-family:'Bricolage Grotesque';font-weight:400;src:url('fonts/BricolageGrotesque-400.ttf')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:600;src:url('fonts/BricolageGrotesque-600.ttf')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700;src:url('fonts/BricolageGrotesque-700.ttf')}
+@font-face{font-family:'JetBrains Mono';font-weight:400;src:url('fonts/JetBrainsMono-400.ttf')}
+@font-face{font-family:'JetBrains Mono';font-weight:500;src:url('fonts/JetBrainsMono-500.ttf')}
+@font-face{font-family:'JetBrains Mono';font-weight:700;src:url('fonts/JetBrainsMono-700.ttf')}
+
+@page{size:A4;margin:13mm 15mm 13mm}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#15171c;
+  --body:#2f323a;
+  --mute:#6b7077;
+  --accent:#166534;
+  --hair:#dcdfe2;
+}
+body{font-family:'Bricolage Grotesque',serif;font-size:9.6pt;line-height:1.5;color:var(--body)}
+code{font-family:'JetBrains Mono',monospace;font-size:8.6pt}
+a{color:inherit;text-decoration:none}
+
+.head{display:flex;justify-content:space-between;align-items:flex-start}
+h1{font-size:24pt;font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.05}
+h1 .dot{color:var(--accent)}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:8pt;color:var(--accent);letter-spacing:.07em;margin-top:6pt}
+.contact{font-family:'JetBrains Mono',monospace;font-size:7.6pt;text-align:right;line-height:1.7;padding-top:3pt}
+.contact .dim{color:var(--mute)}
+.contact .sep{color:var(--hair)}
+
+.summary{margin-top:12pt}
+.summary b{font-weight:700;color:var(--ink)}
+
+h2{font-family:'JetBrains Mono',monospace;font-size:8pt;font-weight:500;color:var(--accent);
+   letter-spacing:.08em;margin:13pt 0 4pt;padding-bottom:4pt;border-bottom:.6pt solid var(--hair)}
+
+/* skills */
+.skill{display:grid;grid-template-columns:104pt 1fr;gap:0 10pt;margin-top:4pt;align-items:baseline}
+.skill .k{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--accent);letter-spacing:.05em}
+
+/* projects */
+.proj{margin-top:7pt}
+.ptop{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+.proj .name{font-family:'JetBrains Mono',monospace;font-size:9.4pt;font-weight:700;color:var(--ink)}
+.proj .tech{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--mute);text-align:right;white-space:nowrap}
+.proj p{margin-top:2pt}
+.proj b{font-weight:700;color:var(--body)}
+
+/* publication */
+.pubrow{display:flex;justify-content:space-between;align-items:baseline;gap:10pt;margin-top:2pt}
+.pub-title{font-weight:600;color:var(--ink)}
+.badge{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--accent);white-space:nowrap}
+.cite{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);margin-top:2pt}
+.pubnote{margin-top:3pt}
+
+/* education */
+.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:4pt}
+.row .l{font-weight:600;color:var(--ink)}
+.row .r{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
+.sub{font-size:9pt;color:var(--mute)}
+.fact{font-family:'JetBrains Mono',monospace;font-size:8pt;color:var(--body);margin-top:2pt}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div>
+    <h1>Md. Taifur Hossain<span class="dot">.</span></h1>
+    <div class="kicker">SOFTWARE ENGINEERING &amp; ML / COMPUTER VISION INTERN</div>
+  </div>
+  <div class="contact">
+    +880 1864 245617<br>
+    taifurrahman0606@gmail.com<br>
+    <span class="dim">Dhaka, Bangladesh</span><br>
+    github.com/Daceyyreal <span class="sep">·</span> daceyyreal.github.io
+  </div>
+</div>
+
+<p class="summary">Final-year Computer Science undergraduate who ships working software. Built and released <b>four open-source tools</b> across 3D vision, model compression, and developer tooling — each with tests, CI, documentation, and a tagged release — plus a <b>first-author paper accepted at ICCA 2026 (ACM)</b>. Comfortable owning a problem end to end, from prototype to a documented release others can run. Seeking a software engineering or ML / computer vision internship.</p>
+
+<h2>TECHNICAL SKILLS</h2>
+<div class="skill"><span class="k">LANGUAGES</span><span>Python, C++, TypeScript / JavaScript, Bash</span></div>
+<div class="skill"><span class="k">ML &amp; VISION</span><span>PyTorch, NumPy, 3D Gaussian Splatting, NeRF, Nerfstudio, gsplat, COLMAP, model quantization, RAG &amp; embeddings (sentence-transformers)</span></div>
+<div class="skill"><span class="k">WEB &amp; UI</span><span>Three.js, Vite, Streamlit, HTML / CSS</span></div>
+<div class="skill"><span class="k">TOOLS &amp; INFRA</span><span>Git, Docker, GitHub Actions (CI/CD), GHCR, Linux, pytest, ruff</span></div>
+
+<h2>PROJECTS</h2>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name"><a href="https://github.com/Daceyyreal/splat-slim">splat-slim</a></span>
+    <span class="tech">Python · Typer · NumPy · pytest + ruff CI</span>
+  </div>
+  <p>Command-line tool and library that compresses trained 3D Gaussian Splatting models by <b>~74% with under 3 dB quality loss</b>, with no retraining. Implemented a self-decodable mixed-precision quantization format that stores per-group ranges in a sidecar <code>.meta.npz</code>, so compressed files still load in standard viewers.</p>
+  <p>Shipped with automated tests and linting on GitHub Actions, MIT-licensed, with a tagged <code>v0.1.0</code> release.</p>
+</div>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name"><a href="https://github.com/Daceyyreal/nerf-prep">nerf-prep</a></span>
+    <span class="tech">Python · Docker · GitHub Actions · GHCR</span>
+  </div>
+  <p>Packaged a fragile multi-tool pipeline (COLMAP to Nerfstudio) into <b>one reproducible Docker command</b>, published to GHCR by CI. Handles matcher selection by capture type, GPU/CPU auto-detection with CPU fallback, headless operation, input validation, and a registration-rate summary.</p>
+  <p>Verified end to end on a real 40-photo capture: <b>40 of 40 images registered</b>.</p>
+</div>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name"><a href="https://daceyyreal.github.io/splat-lab/">splat-lab</a></span>
+    <span class="tech">TypeScript · Three.js · Vite · live demo</span>
+  </div>
+  <p>Browser-based, real-time demo of the compression pipeline: load a scene, move sliders, and watch file size and visual quality trade off live on the GPU. Ported the Python compression math to TypeScript; runs entirely client-side with no backend.</p>
+</div>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name"><a href="https://github.com/Daceyyreal/paper-chat">paper-chat</a></span>
+    <span class="tech">Python · Streamlit · sentence-transformers · PyMuPDF</span>
+  </div>
+  <p>Retrieval-augmented question answering over a PDF library, where <b>every answer cites the exact paper and page</b> it came from and declines when the sources do not cover the question. Swappable LLM backend (Groq or Gemini) behind a small interface, so the retrieval and citation logic is unit-tested with fakes and needs no API key to run.</p>
+</div>
+
+<h2>PUBLICATION</h2>
+<div class="pubrow">
+  <span class="pub-title">Beyond Naive INT8: Adaptive Post-Training Compression for 3D Gaussian Splatting</span>
+  <span class="badge">· ACCEPTED</span>
+</div>
+<div class="cite">M. T. Hossain, S. S. Sourav, M. A. Hossain. Proc. ICCA 2026 (ACM), Dhaka.</div>
+<p class="pubnote">First author. Built the full experimental pipeline and evaluated it across three scenes on a single 16 GB GPU, reaching a 74% size reduction without retraining and diagnosing a quantization failure mode that a sub-group range scheme recovers to within 0.1–0.7 dB.</p>
+
+<h2>EDUCATION</h2>
+<div class="row">
+  <span class="l">International University of Business Agriculture &amp; Technology (IUBAT)</span>
+  <span class="r">Dhaka, BD</span>
+</div>
+<div class="row" style="margin-top:1pt">
+  <span class="sub">B.Sc. in Computer Science &amp; Engineering (BCSE)</span>
+  <span class="r">Expected 2027</span>
+</div>
+<div class="fact">CGPA 3.4 / 4.00</div>
+
+</body>
+</html>
