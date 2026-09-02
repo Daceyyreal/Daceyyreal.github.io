@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Md. Taifur Hossain — CV</title>
+<title>Md. Taifur Hossain - CV</title>
 <!--
   Source for /cv.pdf. Rebuild with headless Edge:
   msedge --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=15000
@@ -20,7 +20,7 @@
 @font-face{font-family:'JetBrains Mono';font-weight:500;src:url('fonts/JetBrainsMono-500.ttf')}
 @font-face{font-family:'JetBrains Mono';font-weight:700;src:url('fonts/JetBrainsMono-700.ttf')}
 
-@page{size:A4;margin:13mm 15mm 14mm}
+@page{size:A4;margin:11mm 13mm 11mm}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --ink:#15171c;      /* headings */
@@ -29,7 +29,7 @@
   --accent:#166534;   /* single professional accent (deep green, ties to site brand) */
   --hair:#dcdfe2;     /* hairlines / separators */
 }
-body{font-family:'Bricolage Grotesque',serif;font-size:9.6pt;line-height:1.5;color:var(--body)}
+body{font-family:'Bricolage Grotesque',serif;font-size:9.1pt;line-height:1.4;color:var(--body)}
 .mono{font-family:'JetBrains Mono',monospace}
 code{font-family:'JetBrains Mono',monospace;font-size:8.6pt}
 a{color:inherit;text-decoration:none}
@@ -44,14 +44,14 @@ h1 .dot{color:var(--accent)}
 .contact .sep{color:var(--hair)}
 
 /* summary */
-.summary{margin-top:13pt;max-width:100%}
+.summary{margin-top:10pt;max-width:100%}
 
 /* sections */
 h2{font-family:'JetBrains Mono',monospace;font-size:8pt;font-weight:500;color:var(--accent);
-   letter-spacing:.42em;margin:15pt 0 4pt;padding-bottom:4pt;border-bottom:.6pt solid var(--hair)}
+   letter-spacing:.42em;margin:10pt 0 3pt;padding-bottom:3pt;border-bottom:.6pt solid var(--hair)}
 
 /* rows with right-aligned meta */
-.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:6pt}
+.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:4pt}
 .row .l{font-weight:600;color:var(--ink)}
 .row .r{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
 .sub{font-size:9pt;color:var(--mute)}
@@ -61,19 +61,19 @@ h2{font-family:'JetBrains Mono',monospace;font-size:8pt;font-weight:500;color:va
 .pub-title{font-weight:600;color:var(--ink)}
 .badge{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--accent);white-space:nowrap}
 .cite{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);margin-top:2pt}
-.points{margin-top:5pt}
-.points p{margin-top:4pt}
+.points{margin-top:4pt}
+.points p{margin-top:3pt}
 b{font-weight:700;color:var(--body)}
 
 /* projects */
-.proj{margin-top:7pt}
+.proj{margin-top:5pt}
 .proj .name{font-family:'JetBrains Mono',monospace;font-size:9.4pt;font-weight:700;color:var(--ink)}
 .proj .tech{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
 .proj .tech a{color:var(--accent)}
 .proj p{margin-top:2pt}
 
 /* skills */
-.skill{display:grid;grid-template-columns:96pt 1fr;gap:0 10pt;margin-top:5pt;align-items:baseline}
+.skill{display:grid;grid-template-columns:96pt 1fr;gap:0 10pt;margin-top:3.5pt;align-items:baseline}
 .skill .k{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--accent);letter-spacing:.06em}
 </style>
 </head>
@@ -82,7 +82,7 @@ b{font-weight:700;color:var(--body)}
 <div class="head">
   <div>
     <h1>Md. Taifur Hossain<span class="dot">.</span></h1>
-    <div class="kicker">CS UNDERGRADUATE — 3D VISION &amp; ML SYSTEMS</div>
+    <div class="kicker">CS UNDERGRADUATE · 3D VISION &amp; ML SYSTEMS</div>
   </div>
   <div class="contact">
     taifurrahman0606@gmail.com<br>
@@ -112,8 +112,8 @@ b{font-weight:700;color:var(--body)}
 </div>
 <div class="cite">M. T. Hossain, S. S. Sourav, M. A. Hossain. Proc. ICCA 2026 (ACM), Dhaka.</div>
 <div class="points">
-  <p>Designed a training-free post-processing pipeline (adaptive pruning → outlier cleaning → spherical-harmonic reduction → mixed-precision quantization) achieving a <b>74% mean size reduction</b> across three scenes at a 1.3–2.7 dB PSNR cost.</p>
-  <p>Diagnosed a per-column INT8 quantization collapse (~15 dB uniform) and recovered to within <b>0.1–0.7 dB of FP16</b> using Morton Z-order sub-group ranges — a positive, reproducible quantization finding.</p>
+  <p>Designed a training-free post-processing pipeline (adaptive pruning → outlier cleaning → spherical-harmonic reduction → mixed-precision quantization) achieving a <b>74% mean size reduction</b> across three scenes at a 1.3 to 2.7 dB PSNR cost.</p>
+  <p>Diagnosed a per-column INT8 quantization collapse (~15 dB uniform) and recovered to within <b>0.1 to 0.7 dB of FP16</b> using Morton Z-order sub-group ranges, a positive and reproducible quantization finding.</p>
   <p>Isolated a zero-update failure mode in post-pruning fine-tuning (optimizer-state dimension mismatch), documented as a reproducible negative result.</p>
   <p>Ran the full multi-scene pipeline on a single 16 GB Kaggle T4 GPU using the Nerfstudio / gsplat ecosystem.</p>
 </div>
@@ -122,7 +122,7 @@ b{font-weight:700;color:var(--body)}
 <div class="proj">
   <div class="row" style="margin-top:0">
     <span class="name">splat-slim</span>
-    <span class="tech">Python · Typer · NumPy · plyfile · CI · MIT</span>
+    <span class="tech">Python · Typer · NumPy · CI · <a href="https://github.com/Daceyyreal/splat-slim">repo</a></span>
   </div>
   <p>Training-free CLI / library that compresses trained 3DGS <code>.ply</code> files ~74% with &lt;3 dB PSNR loss; ships self-decodable Morton-ordered sub-group INT8 with per-group ranges in a sidecar <code>.meta.npz</code>.</p>
 </div>
@@ -131,27 +131,42 @@ b{font-weight:700;color:var(--body)}
     <span class="name">splat-lab</span>
     <span class="tech">Vite · TypeScript · Three.js · <a href="https://daceyyreal.github.io/splat-lab/">live demo</a></span>
   </div>
-  <p>In-browser, real-time demo of the compression pipeline — opacity / scale / SH / quantization sliders with an honest on-screen size readout; a TypeScript port of the splat-slim math.</p>
+  <p>In-browser, real-time demo of the compression pipeline with opacity / scale / SH / quantization sliders and an honest on-screen size readout; a TypeScript port of the splat-slim math.</p>
 </div>
 <div class="proj">
   <div class="row" style="margin-top:0">
     <span class="name">nerf-prep</span>
-    <span class="tech">Python · Typer · Docker · GitHub Actions → GHCR</span>
+    <span class="tech">Python · Docker · GitHub Actions · <a href="https://github.com/Daceyyreal/nerf-prep">repo</a></span>
   </div>
   <p>One-command Dockerized COLMAP → Nerfstudio dataset prep: automatic matcher selection by capture type, GPU/CPU auto-detect, headless operation, input validation, and a registration-rate summary.</p>
 </div>
 <div class="proj">
   <div class="row" style="margin-top:0">
     <span class="name">paper-chat</span>
-    <span class="tech">Python · Groq / Gemini · sentence-transformers · PyMuPDF · Streamlit</span>
+    <span class="tech">Python · Streamlit · sentence-transformers · <a href="https://github.com/Daceyyreal/paper-chat">repo</a></span>
   </div>
   <p>RAG over a PDF / arXiv library with per-(paper, page) citations, cross-paper questions, and grounded-only answers (declines when sources don't cover the question).</p>
 </div>
 
+<div class="proj">
+  <div class="row" style="margin-top:0">
+    <span class="name">lumina-lms</span>
+    <span class="tech">Next.js · React · TypeScript · Prisma · <a href="https://github.com/Daceyyreal/lumina-lms">repo</a></span>
+  </div>
+  <p>Full-stack AI learning management system: a retrieval-augmented tutor that answers from course materials and cites its sources, role-based access for students, instructors and admins, adaptive learning paths, gamification and analytics dashboards.</p>
+</div>
+<div class="proj">
+  <div class="row" style="margin-top:0">
+    <span class="name">medical-expert-system</span>
+    <span class="tech">Python · Flask · scikit-learn · <a href="https://github.com/Daceyyreal/medical-expert-system">repo</a></span>
+  </div>
+  <p>Hybrid diagnosis expert system combining rule-based confidence factors, A* and Best-First search, Bayesian inference and a Decision Tree plus MLP classifier in a weighted ensemble, served through a Flask interface.</p>
+</div>
+
 <h2>TECHNICAL SKILLS</h2>
-<div class="skill"><span class="k">LANGUAGES</span><span>Python, C++, TypeScript / JavaScript, Bash, LaTeX</span></div>
-<div class="skill"><span class="k">ML &amp; 3D VISION</span><span>3D Gaussian Splatting, NeRF, Nerfstudio, gsplat, PyTorch, COLMAP, model quantization, RAG &amp; embeddings (sentence-transformers)</span></div>
-<div class="skill"><span class="k">TOOLS &amp; INFRA</span><span>Docker, Git, GitHub Actions (CI/CD), Linux, Three.js, Vite, Streamlit</span></div>
+<div class="skill"><span class="k">LANGUAGES</span><span>Python, C, C++, C#, TypeScript / JavaScript, Bash, LaTeX</span></div>
+<div class="skill"><span class="k">ML &amp; 3D VISION</span><span>3D Gaussian Splatting, NeRF, Nerfstudio, gsplat, PyTorch, scikit-learn, COLMAP, model quantization, Bayesian inference, RAG &amp; embeddings</span></div>
+<div class="skill"><span class="k">TOOLS &amp; INFRA</span><span>Next.js, React, Prisma, Flask, Streamlit, Three.js, Vite, Docker, Git, GitHub Actions (CI/CD), Linux</span></div>
 
 </body>
 </html>
