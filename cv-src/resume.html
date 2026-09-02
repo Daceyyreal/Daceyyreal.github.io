@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Md. Taifur Hossain — Resume</title>
+<title>Md. Taifur Hossain - Resume</title>
 <!--
   Source for /resume.pdf (job / internship version). Rebuild with headless Edge:
   msedge --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=15000
          --print-to-pdf="F:\Daceyyreal.github.io\resume.pdf" "file:///F:/Daceyyreal.github.io/cv-src/resume.html"
-  Same rules as cv.html: exactly two font families (Bricolage Grotesque + JetBrains Mono,
-  local TTFs only), one green accent. cv.html = academic CV; this = engineering resume.
-  Section headings use TIGHT letter-spacing so resume parsers can read them.
+  Render ONE PDF AT A TIME: two headless Edge runs back to back race and silently
+  leave the old file in place.
+  Rules: exactly two font families (Bricolage Grotesque + JetBrains Mono, local TTFs
+  only), one green accent, no em dashes. Section headings use TIGHT letter-spacing so
+  resume parsers can read them.
 -->
 <style>
 @font-face{font-family:'Bricolage Grotesque';font-weight:400;src:url('fonts/BricolageGrotesque-400.ttf')}
@@ -19,7 +21,7 @@
 @font-face{font-family:'JetBrains Mono';font-weight:500;src:url('fonts/JetBrainsMono-500.ttf')}
 @font-face{font-family:'JetBrains Mono';font-weight:700;src:url('fonts/JetBrainsMono-700.ttf')}
 
-@page{size:A4;margin:12mm 14mm 12mm}
+@page{size:A4;margin:11mm 13mm 11mm}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --ink:#15171c;
@@ -28,58 +30,57 @@
   --accent:#166534;
   --hair:#dcdfe2;
 }
-body{font-family:'Bricolage Grotesque',serif;font-size:9.4pt;line-height:1.45;color:var(--body)}
-code{font-family:'JetBrains Mono',monospace;font-size:8.4pt}
+body{font-family:'Bricolage Grotesque',serif;font-size:9.2pt;line-height:1.42;color:var(--body)}
+code{font-family:'JetBrains Mono',monospace;font-size:8.2pt}
 a{color:inherit;text-decoration:none}
 
-.head{display:flex;justify-content:space-between;align-items:flex-start}
-h1{font-size:23pt;font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.05}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:11pt}
+.hmain{flex:1 1 auto}
+h1{font-size:22pt;font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.05}
 h1 .dot{color:var(--accent)}
-.kicker{font-family:'JetBrains Mono',monospace;font-size:8pt;color:var(--accent);letter-spacing:.07em;margin-top:5pt}
-.contact{font-family:'JetBrains Mono',monospace;font-size:7.6pt;text-align:right;line-height:1.65;padding-top:3pt}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--accent);letter-spacing:.07em;margin-top:5pt}
+.contact{font-family:'JetBrains Mono',monospace;font-size:7.3pt;text-align:right;line-height:1.62;padding-top:2pt;flex:0 0 auto}
 .contact .dim{color:var(--mute)}
 .contact .sep{color:var(--hair)}
+.photo{width:23mm;height:30mm;object-fit:cover;border:.6pt solid var(--hair);border-radius:1.5pt;flex:0 0 auto}
 
-.summary{margin-top:10pt}
+.summary{margin-top:9pt}
 .summary b{font-weight:700;color:var(--ink)}
 
-h2{font-family:'JetBrains Mono',monospace;font-size:8pt;font-weight:500;color:var(--accent);
-   letter-spacing:.08em;margin:11pt 0 3pt;padding-bottom:3pt;border-bottom:.6pt solid var(--hair)}
+h2{font-family:'JetBrains Mono',monospace;font-size:7.8pt;font-weight:500;color:var(--accent);
+   letter-spacing:.08em;margin:10pt 0 3pt;padding-bottom:3pt;border-bottom:.6pt solid var(--hair)}
 
-/* skills */
-.skill{display:grid;grid-template-columns:100pt 1fr;gap:0 10pt;margin-top:3.5pt;align-items:baseline}
-.skill .k{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--accent);letter-spacing:.05em}
+.skill{display:grid;grid-template-columns:96pt 1fr;gap:0 9pt;margin-top:3pt;align-items:baseline}
+.skill .k{font-family:'JetBrains Mono',monospace;font-size:7.5pt;color:var(--accent);letter-spacing:.05em}
 
-/* projects */
-.proj{margin-top:7pt}
-.ptop{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
-.proj .name{font-family:'JetBrains Mono',monospace;font-size:9.2pt;font-weight:700;color:var(--ink)}
-.proj .links{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--accent);white-space:nowrap}
-.pdesc{font-size:8.9pt;font-style:italic;color:var(--mute);margin-top:1pt}
-ul.blist{margin-top:2.5pt;padding-left:11pt}
+.proj{margin-top:6.5pt}
+.ptop{display:flex;justify-content:space-between;align-items:baseline;gap:9pt}
+.proj .name{font-family:'JetBrains Mono',monospace;font-size:9pt;font-weight:700;color:var(--ink)}
+.proj .links{font-family:'JetBrains Mono',monospace;font-size:7.2pt;color:var(--accent);white-space:nowrap}
+.proj .links.team{color:var(--mute)}
+.pdesc{font-size:8.7pt;font-style:italic;color:var(--mute);margin-top:1pt}
+ul.blist{margin-top:2.5pt;padding-left:10.5pt}
 ul.blist li{margin-top:1.5pt}
-.ptech{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--mute);margin-top:3pt}
+.ptech{font-family:'JetBrains Mono',monospace;font-size:7.2pt;color:var(--mute);margin-top:2.5pt}
 .ptech b{color:var(--body);font-weight:700}
 b{font-weight:700;color:var(--body)}
 
-/* publication */
-.pubrow{display:flex;justify-content:space-between;align-items:baseline;gap:10pt;margin-top:2pt}
+.pubrow{display:flex;justify-content:space-between;align-items:baseline;gap:9pt;margin-top:2pt}
 .pub-title{font-weight:600;color:var(--ink)}
-.badge{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--accent);white-space:nowrap}
-.cite{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--mute);margin-top:2pt}
+.badge{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--accent);white-space:nowrap}
+.cite{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--mute);margin-top:2pt}
 
-/* education */
-.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:3.5pt}
+.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:3pt}
 .row .l{font-weight:600;color:var(--ink)}
-.row .r{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
-.sub{font-size:9pt;color:var(--mute)}
-.fact{font-family:'JetBrains Mono',monospace;font-size:8pt;color:var(--body);margin-top:2pt}
+.row .r{font-family:'JetBrains Mono',monospace;font-size:7.5pt;color:var(--mute);white-space:nowrap;padding-left:9pt}
+.sub{font-size:8.8pt;color:var(--mute)}
+.fact{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--body);margin-top:1.5pt}
 </style>
 </head>
 <body>
 
 <div class="head">
-  <div>
+  <div class="hmain">
     <h1>Md. Taifur Hossain<span class="dot">.</span></h1>
     <div class="kicker">SOFTWARE ENGINEERING INTERN</div>
   </div>
@@ -88,19 +89,37 @@ b{font-weight:700;color:var(--body)}
     taifurrahman0606@gmail.com<br>
     <span class="dim">Dhaka, Bangladesh</span><br>
     github.com/Daceyyreal <span class="sep">·</span> daceyyreal.github.io<br>
-    <a href="https://www.linkedin.com/in/taifur-hossain-siam-b67447433/">linkedin.com/in/taifur-hossain-siam-b67447433</a>
+    <a href="https://www.linkedin.com/in/taifur-hossain-siam-b67447433/">linkedin.com/in/taifur-hossain-siam</a>
   </div>
+  <img class="photo" src="photo.jpg" alt="">
 </div>
 
-<p class="summary">Final-year Computer Science undergraduate who ships working software. Built and released <b>four open-source tools</b> across 3D vision, model compression, and developer tooling — each with tests, CI, documentation, and a tagged release — plus a <b>first-author paper accepted at ICCA 2026 (ACM)</b>. Comfortable across C, C++, C#, Python, and JavaScript, and used to owning a problem end to end, from prototype to a documented release others can run. Open to software engineering internships across backend, full-stack, systems, and ML.</p>
+<p class="summary">Final-year Computer Science undergraduate who ships working software. Built and released <b>four open-source tools</b> across 3D vision, model compression, and developer tooling, each with tests, CI, documentation, and a tagged release, plus a <b>first-author paper accepted at ICCA 2026 (ACM)</b>. Also builds full-stack and applied-AI systems in team settings, from a Next.js learning platform to a hybrid medical expert system. Comfortable across C, C++, C#, Python, and JavaScript, and used to owning a problem from prototype through to a documented release. Open to software engineering internships across backend, full-stack, systems, and ML.</p>
 
 <h2>TECHNICAL SKILLS</h2>
-<div class="skill"><span class="k">LANGUAGES</span><span>C, C++, C#, Python, JavaScript / TypeScript, Bash</span></div>
-<div class="skill"><span class="k">ML &amp; VISION</span><span>PyTorch, NumPy, 3D Gaussian Splatting, NeRF, Nerfstudio, gsplat, COLMAP, model quantization, RAG &amp; embeddings (sentence-transformers)</span></div>
-<div class="skill"><span class="k">WEB &amp; UI</span><span>Three.js, Vite, Streamlit, HTML / CSS</span></div>
-<div class="skill"><span class="k">TOOLS &amp; INFRA</span><span>Git, Docker, GitHub Actions (CI/CD), GHCR, Linux, pytest, ruff</span></div>
+<div class="skill"><span class="k">LANGUAGES</span><span>C, C++, C#, Python, JavaScript / TypeScript, SQL, Bash</span></div>
+<div class="skill"><span class="k">WEB &amp; FRAMEWORKS</span><span>Next.js, React, Node.js, Tailwind CSS, Flask, Streamlit, Three.js, Vite, HTML / CSS</span></div>
+<div class="skill"><span class="k">AI &amp; DATA</span><span>PyTorch, scikit-learn, NumPy, Prisma, SQLite, RAG and embeddings, Bayesian inference, heuristic search (A*), model quantization</span></div>
+<div class="skill"><span class="k">3D &amp; VISION</span><span>3D Gaussian Splatting, NeRF, Nerfstudio, gsplat, COLMAP</span></div>
+<div class="skill"><span class="k">TOOLS &amp; PRACTICE</span><span>Git, Docker, GitHub Actions (CI/CD), GHCR, Linux, pytest, ruff, ESLint, Agile / Scrum</span></div>
 
 <h2>PROJECTS</h2>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name">Lumina, AI Learning Management System</span>
+    <span class="links team">Team of 3 · CSC 470 Software Engineering</span>
+  </div>
+  <div class="pdesc">AI-assisted learning platform built across Agile sprints, with a retrieval tutor grounded in real course material.</div>
+  <ul class="blist">
+    <li>Full-stack Next.js 16 and React 19 application in TypeScript, roughly <b>7,500 lines</b>, backed by Prisma and SQLite.</li>
+    <li>Retrieval-augmented tutor that answers from uploaded course materials and shows the sources it used.</li>
+    <li>Role-based access for Student, Instructor, and Admin, with JWT sessions, bcrypt password hashing, and Zod input validation.</li>
+    <li>Adaptive learning paths, gamification (XP, badges, streaks), and instructor analytics dashboards.</li>
+    <li>Runs fully offline against a mock AI provider, or against Google Gemini by setting a single environment variable.</li>
+  </ul>
+  <div class="ptech"><b>Tech Stack:</b> Next.js, React, TypeScript, Tailwind CSS, Prisma, SQLite, Google Gemini, Zod, Recharts.</div>
+</div>
 
 <div class="proj">
   <div class="ptop">
@@ -109,12 +128,27 @@ b{font-weight:700;color:var(--body)}
   </div>
   <div class="pdesc">Training-free compression tool for trained 3D Gaussian Splatting models.</div>
   <ul class="blist">
-    <li>Compresses trained 3DGS models by <b>~74% with under 3 dB quality loss</b>, with no retraining.</li>
-    <li>Built a four-stage pipeline: adaptive opacity pruning, outlier clipping, spherical-harmonic reduction, and quantization.</li>
-    <li>Designed a self-decodable mixed-precision format storing per-group ranges in a sidecar <code>.meta.npz</code>, so compressed files still open in standard viewers.</li>
-    <li>Shipped as both a CLI and a library, with automated tests and linting on every push and a tagged <code>v0.1.0</code> release.</li>
+    <li>Compresses trained 3DGS models by <b>roughly 74% with under 3 dB quality loss</b>, with no retraining.</li>
+    <li>Four-stage pipeline: adaptive opacity pruning, outlier clipping, spherical-harmonic reduction, and quantization.</li>
+    <li>Self-decodable mixed-precision format storing per-group ranges in a sidecar <code>.meta.npz</code>, so output still opens in standard viewers.</li>
+    <li>Shipped as a CLI and a library, with automated tests and linting on every push and a tagged <code>v0.1.0</code> release.</li>
   </ul>
   <div class="ptech"><b>Tech Stack:</b> Python, Typer, NumPy, plyfile, pytest, ruff, GitHub Actions.</div>
+</div>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name">AI-Based Medical Expert System</span>
+    <span class="links team">Team of 2 · CSE 4383 AI &amp; Expert Systems</span>
+  </div>
+  <div class="pdesc">Hybrid expert system combining five AI techniques into a single diagnosis pipeline.</div>
+  <ul class="blist">
+    <li>Combines rule-based reasoning with confidence factors, <b>A* search</b>, Best-First search, <b>Bayesian inference</b>, and a Decision Tree plus MLP neural network.</li>
+    <li>Merges all five outputs through a weighted ensemble to produce a ranked diagnosis with confidence scores.</li>
+    <li>Encodes 10 IF-THEN rules over 15 binary symptom features across 6 conditions, and benchmarks the pipeline against a real dataset.</li>
+    <li>Serves the whole system through a Flask web interface with a symptom checklist and a results dashboard.</li>
+  </ul>
+  <div class="ptech"><b>Tech Stack:</b> Python, Flask, scikit-learn, NumPy.</div>
 </div>
 
 <div class="proj">
@@ -125,25 +159,10 @@ b{font-weight:700;color:var(--body)}
   <div class="pdesc">One-command Dockerized pipeline turning a folder of photos into a training-ready 3D dataset.</div>
   <ul class="blist">
     <li>Packaged a fragile multi-tool chain (COLMAP to Nerfstudio) into <b>a single reproducible Docker command</b>, published to GHCR automatically by CI.</li>
-    <li>Automatic matcher selection by capture type, plus GPU/CPU auto-detection with a CPU fallback so the same command runs on a cloud GPU or a laptop.</li>
-    <li>Validates input before a long run — flags double extensions, too-few images, and stray files — and prints a registration-rate summary at the end.</li>
-    <li>Verified end to end on a real 40-photo capture: <b>40 of 40 images registered</b>.</li>
+    <li>Automatic matcher selection by capture type, plus GPU and CPU auto-detection with a fallback, so the same command runs on a cloud GPU or a laptop.</li>
+    <li>Validates input before a long run, flagging double extensions and too-few images, then prints a registration-rate summary. Verified on a real 40-photo capture at <b>40 of 40 registered</b>.</li>
   </ul>
   <div class="ptech"><b>Tech Stack:</b> Python, Typer, Docker, COLMAP, Nerfstudio, GitHub Actions, GHCR.</div>
-</div>
-
-<div class="proj">
-  <div class="ptop">
-    <span class="name">splat-lab</span>
-    <span class="links"><a href="https://daceyyreal.github.io/splat-lab/">Live Demo</a> · <a href="https://github.com/Daceyyreal/splat-lab">GitHub</a></span>
-  </div>
-  <div class="pdesc">Browser-based, real-time demo of the compression pipeline.</div>
-  <ul class="blist">
-    <li>Load a 3D scene and watch file size and visual quality trade off <b>live on the GPU</b> while dragging sliders.</li>
-    <li>Ported the Python compression maths to TypeScript so the browser reproduces the same results.</li>
-    <li>Runs entirely client-side with no backend, and deploys automatically to GitHub Pages.</li>
-  </ul>
-  <div class="ptech"><b>Tech Stack:</b> TypeScript, Three.js, Vite, GitHub Pages.</div>
 </div>
 
 <div class="proj">
@@ -155,10 +174,22 @@ b{font-weight:700;color:var(--body)}
   <ul class="blist">
     <li><b>Every answer cites the exact paper and page</b> it came from, and the app declines to answer when the sources do not cover the question.</li>
     <li>Parses PDFs per page so each retrieved chunk carries a (paper, page) tag, enabling cross-paper comparison questions.</li>
-    <li>Swappable LLM backend (Groq or Gemini) behind a small interface, selectable by environment variable.</li>
-    <li>Retrieval and citation logic unit-tested with fake models, so the test suite runs with no API key and no model download.</li>
+    <li>Swappable LLM backend (Groq or Gemini) behind a small interface, with retrieval and citation logic unit-tested using fakes, so tests run with no API key.</li>
   </ul>
   <div class="ptech"><b>Tech Stack:</b> Python, Streamlit, sentence-transformers, PyMuPDF, NumPy.</div>
+</div>
+
+<div class="proj">
+  <div class="ptop">
+    <span class="name">splat-lab</span>
+    <span class="links"><a href="https://daceyyreal.github.io/splat-lab/">Live Demo</a> · <a href="https://github.com/Daceyyreal/splat-lab">GitHub</a></span>
+  </div>
+  <div class="pdesc">Browser-based, real-time demo of the compression pipeline.</div>
+  <ul class="blist">
+    <li>Load a 3D scene and watch file size and visual quality trade off <b>live on the GPU</b> while dragging sliders.</li>
+    <li>Ported the Python compression maths to TypeScript so the browser reproduces the same results, running entirely client-side with no backend.</li>
+  </ul>
+  <div class="ptech"><b>Tech Stack:</b> TypeScript, Three.js, Vite, GitHub Pages.</div>
 </div>
 
 <h2>PUBLICATION</h2>
@@ -169,7 +200,7 @@ b{font-weight:700;color:var(--body)}
 <div class="cite">M. T. Hossain, S. S. Sourav, M. A. Hossain. Proc. ICCA 2026 (ACM), Dhaka.</div>
 <ul class="blist">
   <li>First author. Built the full experimental pipeline and evaluated it across three scenes on a single 16 GB GPU.</li>
-  <li>Achieved a <b>74% size reduction without retraining</b>, and diagnosed a quantization failure mode that a sub-group range scheme recovers to within 0.1–0.7 dB.</li>
+  <li>Achieved a <b>74% size reduction without retraining</b>, and diagnosed a quantization failure mode that a sub-group range scheme recovers to within 0.1 to 0.7 dB.</li>
 </ul>
 
 <h2>EDUCATION</h2>
@@ -183,13 +214,13 @@ b{font-weight:700;color:var(--body)}
 </div>
 <div class="fact">CGPA 3.4 / 4.00</div>
 
-<div class="row" style="margin-top:6pt">
+<div class="row" style="margin-top:5pt">
   <span class="l">Higher Secondary Certificate (HSC)</span>
-  <span class="r">Dhaka, BD <span class="sep">·</span> 2019 – 2021</span>
+  <span class="r">Dhaka, BD <span class="sep">·</span> 2019 - 2021</span>
 </div>
 <div class="fact">GPA 5.00 / 5.00</div>
 
-<div class="row" style="margin-top:6pt">
+<div class="row" style="margin-top:5pt">
   <span class="l">Secondary School Certificate (SSC)</span>
   <span class="r">Dhaka, BD <span class="sep">·</span> 2018</span>
 </div>
