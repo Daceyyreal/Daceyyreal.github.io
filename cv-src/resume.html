@@ -9,16 +9,14 @@
          --print-to-pdf="F:\Daceyyreal.github.io\resume.pdf" "file:///F:/Daceyyreal.github.io/cv-src/resume.html"
   Render ONE PDF AT A TIME: two headless Edge runs back to back race and silently
   leave the old file in place.
-  Rules: exactly two font families (Bricolage Grotesque + JetBrains Mono, local TTFs
-  only), one green accent, no em dashes. Section headings use TIGHT letter-spacing so
+  Rules: Lato for everything, JetBrains Mono for inline code tokens only (local TTFs), one green accent, no em dashes. Section headings use TIGHT letter-spacing so
   resume parsers can read them.
 -->
 <style>
-@font-face{font-family:'Bricolage Grotesque';font-weight:400;src:url('fonts/BricolageGrotesque-400.ttf')}
-@font-face{font-family:'Bricolage Grotesque';font-weight:600;src:url('fonts/BricolageGrotesque-600.ttf')}
-@font-face{font-family:'Bricolage Grotesque';font-weight:700;src:url('fonts/BricolageGrotesque-700.ttf')}
+@font-face{font-family:'Lato';font-weight:400;src:url('fonts/Lato-400.ttf')}
+@font-face{font-family:'Lato';font-weight:700;src:url('fonts/Lato-700.ttf')}
+@font-face{font-family:'Lato';font-weight:900;src:url('fonts/Lato-900.ttf')}
 @font-face{font-family:'JetBrains Mono';font-weight:400;src:url('fonts/JetBrainsMono-400.ttf')}
-@font-face{font-family:'JetBrains Mono';font-weight:500;src:url('fonts/JetBrainsMono-500.ttf')}
 @font-face{font-family:'JetBrains Mono';font-weight:700;src:url('fonts/JetBrainsMono-700.ttf')}
 
 @page{size:A4;margin:11mm 13mm 11mm}
@@ -30,52 +28,52 @@
   --accent:#166534;
   --hair:#dcdfe2;
 }
-body{font-family:'Bricolage Grotesque',serif;font-size:9.2pt;line-height:1.42;color:var(--body)}
-code{font-family:'JetBrains Mono',monospace;font-size:8.2pt}
+body{font-family:'Lato',sans-serif;font-size:9.5pt;line-height:1.4;color:var(--body)}
+code{font-family:'JetBrains Mono',monospace;font-size:8.3pt}
 a{color:inherit;text-decoration:none}
 
 .head{display:flex;justify-content:space-between;align-items:flex-start;gap:11pt}
 .hmain{flex:1 1 auto}
-h1{font-size:22pt;font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.05}
+h1{font-size:22pt;font-weight:700;letter-spacing:-.005em;color:var(--ink);line-height:1.05}
 h1 .dot{color:var(--accent)}
-.kicker{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--accent);letter-spacing:.07em;margin-top:5pt}
-.contact{font-family:'JetBrains Mono',monospace;font-size:7.3pt;text-align:right;line-height:1.62;padding-top:2pt;flex:0 0 auto}
+.kicker{font-size:8.2pt;font-weight:700;color:var(--accent);letter-spacing:.13em;margin-top:5pt}
+.contact{font-size:8pt;text-align:right;line-height:1.55;padding-top:2pt;flex:0 0 auto;color:var(--body)}
 .contact .dim{color:var(--mute)}
-.contact .sep{color:var(--hair)}
+.contact .sep{color:#a9afb5}
 .photo{width:23mm;height:30mm;object-fit:cover;border:.6pt solid var(--hair);border-radius:1.5pt;flex:0 0 auto}
 
 .summary{margin-top:9pt}
 .summary b{font-weight:700;color:var(--ink)}
 
-h2{font-family:'JetBrains Mono',monospace;font-size:7.8pt;font-weight:500;color:var(--accent);
-   letter-spacing:.08em;margin:10pt 0 3pt;padding-bottom:3pt;border-bottom:.6pt solid var(--hair)}
+h2{font-size:8.8pt;font-weight:700;color:var(--accent);letter-spacing:.1em;
+   margin:10pt 0 3pt;padding-bottom:3pt;border-bottom:.7pt solid var(--hair)}
 
 .skill{display:grid;grid-template-columns:96pt 1fr;gap:0 9pt;margin-top:3pt;align-items:baseline}
-.skill .k{font-family:'JetBrains Mono',monospace;font-size:7.5pt;color:var(--accent);letter-spacing:.05em}
+.skill .k{font-size:8pt;font-weight:700;color:var(--accent);letter-spacing:.04em}
 
 .proj{margin-top:6.5pt}
 .ptop{display:flex;justify-content:space-between;align-items:baseline;gap:9pt}
-.proj .name{font-family:'JetBrains Mono',monospace;font-size:9pt;font-weight:700;color:var(--ink)}
-.proj .links{font-family:'JetBrains Mono',monospace;font-size:7.2pt;color:var(--accent);white-space:nowrap}
+.proj .name{font-size:10pt;font-weight:700;color:var(--ink);letter-spacing:.005em}
+.proj .links{font-size:8pt;font-weight:700;color:var(--accent);white-space:nowrap}
 .proj .links.team{color:var(--mute)}
 .proj .links .ctx{color:var(--mute)}
-.pdesc{font-size:8.7pt;font-style:italic;color:var(--mute);margin-top:1pt}
-ul.blist{margin-top:2.5pt;padding-left:10.5pt}
+.pdesc{font-size:9pt;font-style:italic;color:var(--mute);margin-top:1pt}
+ul.blist{margin-top:2.5pt;padding-left:11pt}
 ul.blist li{margin-top:1.5pt}
-.ptech{font-family:'JetBrains Mono',monospace;font-size:7.2pt;color:var(--mute);margin-top:2.5pt}
+.ptech{font-size:8.3pt;color:var(--mute);margin-top:2.5pt}
 .ptech b{color:var(--body);font-weight:700}
 b{font-weight:700;color:var(--body)}
 
 .pubrow{display:flex;justify-content:space-between;align-items:baseline;gap:9pt;margin-top:2pt}
-.pub-title{font-weight:600;color:var(--ink)}
-.badge{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--accent);white-space:nowrap}
-.cite{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--mute);margin-top:2pt}
+.pub-title{font-weight:700;color:var(--ink)}
+.badge{font-size:8pt;font-weight:700;color:var(--accent);white-space:nowrap}
+.cite{font-size:8.3pt;color:var(--mute);margin-top:2pt}
 
 .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:3pt}
-.row .l{font-weight:600;color:var(--ink)}
-.row .r{font-family:'JetBrains Mono',monospace;font-size:7.5pt;color:var(--mute);white-space:nowrap;padding-left:9pt}
-.sub{font-size:8.8pt;color:var(--mute)}
-.fact{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--body);margin-top:1.5pt}
+.row .l{font-weight:700;color:var(--ink)}
+.row .r{font-size:8.3pt;color:var(--mute);white-space:nowrap;padding-left:9pt}
+.sub{font-size:9pt;color:var(--mute)}
+.fact{font-size:8.3pt;color:var(--body);margin-top:1.5pt}
 </style>
 </head>
 <body>
