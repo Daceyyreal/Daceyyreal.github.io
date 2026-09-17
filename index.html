@@ -253,8 +253,16 @@
   .foot .big{font-size:clamp(2.6rem,8vw,5.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.02}
   .foot .big a{color:var(--amber);transition:text-shadow .25s}
   .foot .big a:hover{text-shadow:0 0 24px rgba(74,222,128,.45)}
-  .cgrid{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  @media(max-width:760px){.cgrid{grid-template-columns:repeat(2,1fr)}}
+  .cgrid{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  /* dividers are the grid background, so an empty slot shows as a solid block:
+     stretch a lone last cell across whatever is left of its row */
+  .cgrid > div:last-child:nth-child(3n+1){grid-column:1 / -1}
+  .cgrid > div:last-child:nth-child(3n+2){grid-column:span 2}
+  @media(max-width:760px){
+    .cgrid{grid-template-columns:repeat(2,1fr)}
+    .cgrid > div:last-child:nth-child(n){grid-column:auto}
+    .cgrid > div:last-child:nth-child(2n+1){grid-column:1 / -1}
+  }
   .cgrid > div{background:var(--ink-2);padding:20px 22px;font-family:var(--mono);font-size:12px;transition:background .2s}
   .cgrid > div:hover{background:var(--panel)}
   .cgrid .k{color:var(--dim);letter-spacing:.08em;font-size:10.5px;text-transform:uppercase}
@@ -500,9 +508,9 @@
     <div class="cgrid rv">
       <div><div class="k">Email</div><div class="v"><a href="mailto:taifurrahman0606@gmail.com">taifurrahman0606@gmail.com</a></div></div>
       <div><div class="k">GitHub</div><div class="v"><a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">@Daceyyreal</a></div></div>
+      <div><div class="k">LinkedIn</div><div class="v"><a href="https://www.linkedin.com/in/taifur-hossain-siam-b67447433/" target="_blank" rel="noopener">profile ↗</a></div></div>
       <div><div class="k">CV</div><div class="v"><a href="./cv.pdf" target="_blank" rel="noopener">download PDF ↗</a></div></div>
       <div><div class="k">Base</div><div class="v">Dhaka, BD · UTC+6</div></div>
-      <div><div class="k">LinkedIn</div><div class="v"><a href="https://www.linkedin.com/in/taifur-hossain-siam-b67447433/" target="_blank" rel="noopener">profile ↗</a></div></div>
     </div>
     <div class="copy rv">© 2026 · built &amp; deployed by hand · github.com/Daceyyreal</div>
   </div>
