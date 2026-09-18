@@ -51,7 +51,7 @@ h2{font-size:8.8pt;font-weight:700;color:var(--accent);letter-spacing:.1em;
 .skill{display:grid;grid-template-columns:96pt 1fr;gap:0 9pt;margin-top:3pt;align-items:baseline}
 .skill .k{font-size:8pt;font-weight:700;color:var(--accent);letter-spacing:.04em}
 
-.proj{margin-top:6.5pt}
+.proj{margin-top:6.5pt;break-inside:avoid}
 .ptop{display:flex;justify-content:space-between;align-items:baseline;gap:9pt}
 .proj .name{font-size:10pt;font-weight:700;color:var(--ink);letter-spacing:.005em}
 .proj .links{font-size:8pt;font-weight:700;color:var(--accent);white-space:nowrap}
@@ -74,6 +74,10 @@ b{font-weight:700;color:var(--body)}
 .row .r{font-size:8.3pt;color:var(--mute);white-space:nowrap;padding-left:9pt}
 .sub{font-size:9pt;color:var(--mute)}
 .fact{font-size:8.3pt;color:var(--body);margin-top:1.5pt}
+a.pr{color:var(--accent);font-weight:700}
+.sub .sep,.l .sep{color:#a9afb5}
+.sub .val,.l .val{color:var(--body);font-weight:400}
+.nw{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -191,6 +195,12 @@ b{font-weight:700;color:var(--body)}
   <div class="ptech"><b>Tech Stack:</b> TypeScript, Three.js, Vite, GitHub Pages.</div>
 </div>
 
+<h2>OPEN SOURCE CONTRIBUTIONS</h2>
+<ul class="blist">
+  <li><b>gsplat</b> <a class="pr" href="https://github.com/nerfstudio-project/gsplat/pull/1063">PR #1063</a> (open): opacity × area weighted K-means for the <code>PngCompression</code> SH codebook, <b class="nw">+0.111 dB</b> mean PSNR on 9 MipNeRF360 scenes and +0.052 dB on Tanks &amp; Temples, better on every scene at the same size and format.</li>
+  <li><b>gsplat</b> <a class="pr" href="https://github.com/nerfstudio-project/gsplat/pull/1061">PR #1061</a> (open): fixed <code>PngCompression</code> failing on <code>sh_degree=0</code> scenes and empty tensors.</li>
+</ul>
+
 <h2>PUBLICATION</h2>
 <div class="pubrow">
   <span class="pub-title">Beyond Naive INT8: Adaptive Post-Training Compression for 3D Gaussian Splatting</span>
@@ -208,22 +218,19 @@ b{font-weight:700;color:var(--body)}
   <span class="r">Dhaka, BD</span>
 </div>
 <div class="row" style="margin-top:1pt">
-  <span class="sub">B.Sc. in Computer Science &amp; Engineering (BCSE)</span>
+  <span class="sub">B.Sc. in Computer Science &amp; Engineering (BCSE) <span class="sep">·</span> <span class="val">CGPA 3.3 / 4.00</span></span>
   <span class="r">Expected 2027</span>
 </div>
-<div class="fact">CGPA 3.3 / 4.00</div>
 
 <div class="row" style="margin-top:5pt">
-  <span class="l">Higher Secondary Certificate (HSC)</span>
+  <span class="l">Higher Secondary Certificate (HSC) <span class="sep">·</span> <span class="val">GPA 5.00 / 5.00</span></span>
   <span class="r">Dhaka, BD <span class="sep">·</span> 2019 - 2021</span>
 </div>
-<div class="fact">GPA 5.00 / 5.00</div>
 
 <div class="row" style="margin-top:5pt">
-  <span class="l">Secondary School Certificate (SSC)</span>
+  <span class="l">Secondary School Certificate (SSC) <span class="sep">·</span> <span class="val">GPA 5.00 / 5.00</span></span>
   <span class="r">Dhaka, BD <span class="sep">·</span> 2018</span>
 </div>
-<div class="fact">GPA 5.00 / 5.00</div>
 
 <h2>LANGUAGES</h2>
 <div class="skill"><span class="k">ENGLISH</span><span>Proficient</span></div>
@@ -234,8 +241,7 @@ b{font-weight:700;color:var(--body)}
   <span class="l">Dr. Ishtiak Al Mamoon</span>
   <span class="r">Professor</span>
 </div>
-<div class="sub">Department of Computer Science &amp; Engineering, IUBAT</div>
-<div class="fact">ishtiak.cse@iubat.edu</div>
+<div class="sub">Department of Computer Science &amp; Engineering, IUBAT <span class="sep">·</span> <span class="val">ishtiak.cse@iubat.edu</span></div>
 
 </body>
 </html>

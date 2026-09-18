@@ -16,7 +16,7 @@
 @font-face{font-family:'Lato';font-weight:900;src:url('fonts/Lato-900.ttf')}
 @font-face{font-family:'JetBrains Mono';font-weight:400;src:url('fonts/JetBrainsMono-400.ttf')}
 
-@page{size:A4;margin:11mm 13mm 11mm}
+@page{size:A4;margin:10mm 13mm 10mm}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --ink:#15171c;      /* headings */
@@ -25,7 +25,7 @@
   --accent:#166534;   /* single professional accent */
   --hair:#dcdfe2;     /* hairlines */
 }
-body{font-family:'Lato',sans-serif;font-size:9.4pt;line-height:1.38;color:var(--body)}
+body{font-family:'Lato',sans-serif;font-size:9.4pt;line-height:1.33;color:var(--body)}
 .mono,code{font-family:'JetBrains Mono',monospace;font-size:8.2pt}
 a{color:inherit;text-decoration:none}
 
@@ -43,7 +43,7 @@ h1 .dot{color:var(--accent)}
 
 /* sections */
 h2{font-size:8.8pt;font-weight:700;color:var(--accent);letter-spacing:.1em;
-   margin:8pt 0 3pt;padding-bottom:2.5pt;border-bottom:.7pt solid var(--hair)}
+   margin:6pt 0 3pt;padding-bottom:2.5pt;border-bottom:.7pt solid var(--hair)}
 
 /* rows with right-aligned meta */
 .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:3.5pt}
@@ -51,6 +51,8 @@ h2{font-size:8.8pt;font-weight:700;color:var(--accent);letter-spacing:.1em;
 .row .r{font-size:8.2pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
 .sub{font-size:9pt;color:var(--mute)}
 .fact{font-size:8.3pt;color:var(--body);margin-top:3pt}
+.sub .sep{color:#a9afb5}
+.sub .gpa{color:var(--body)}
 
 /* publication */
 .pub-title{font-weight:700;color:var(--ink)}
@@ -66,6 +68,9 @@ b{font-weight:700;color:var(--body)}
 .proj .tech{font-size:8pt;color:var(--mute);white-space:nowrap;padding-left:10pt}
 .proj .tech a{color:var(--accent);font-weight:700}
 .proj p{margin-top:2pt}
+.proj .points{margin-top:0}
+a.pr{color:var(--accent);font-weight:700}
+.nw{white-space:nowrap}
 
 /* skills */
 .skill{display:grid;grid-template-columns:96pt 1fr;gap:0 10pt;margin-top:3.5pt;align-items:baseline}
@@ -87,7 +92,7 @@ b{font-weight:700;color:var(--body)}
   </div>
 </div>
 
-<p class="summary">Final-year Computer Science undergraduate focused on memory-efficient 3D Gaussian Splatting. Built and released four open-source tools across 3D reconstruction, model compression, and ML tooling, plus a full multi-scene research pipeline. Comfortable taking a problem from experimentation through to a tested, documented release.</p>
+<p class="summary">Final-year Computer Science undergraduate focused on memory-efficient 3D Gaussian Splatting. Released four open-source tools and opened two pull requests to gsplat, each taken from experiment to a tested, documented result.</p>
 
 <h2>EDUCATION</h2>
 <div class="row">
@@ -95,10 +100,9 @@ b{font-weight:700;color:var(--body)}
   <span class="r">Dhaka, BD</span>
 </div>
 <div class="row" style="margin-top:1pt">
-  <span class="sub">B.Sc. in Computer Science &amp; Engineering (BCSE)</span>
+  <span class="sub">B.Sc. in Computer Science &amp; Engineering (BCSE) <span class="sep">·</span> <span class="gpa">CGPA 3.3 / 4.00</span></span>
   <span class="r">Expected 2027</span>
 </div>
-<div class="fact">CGPA 3.3 / 4.00</div>
 
 <h2>PUBLICATIONS</h2>
 <div class="row">
@@ -109,8 +113,14 @@ b{font-weight:700;color:var(--body)}
 <div class="points">
   <p>Designed a training-free post-processing pipeline (adaptive pruning → outlier cleaning → spherical-harmonic reduction → mixed-precision quantization) achieving a <b>74% mean size reduction</b> across three scenes at a 1.3 to 2.7 dB PSNR cost.</p>
   <p>Diagnosed a per-column INT8 quantization collapse (~15 dB uniform) and recovered to within <b>0.1 to 0.7 dB of FP16</b> using Morton Z-order sub-group ranges, a positive and reproducible quantization finding.</p>
-  <p>Isolated a zero-update failure mode in post-pruning fine-tuning (optimizer-state dimension mismatch), documented as a reproducible negative result.</p>
+  <p>Isolated a zero-update failure in post-pruning fine-tuning (stale optimizer state), reported as a negative result.</p>
   <p>Ran the full multi-scene pipeline on a single 16 GB Kaggle T4 GPU using the Nerfstudio / gsplat ecosystem.</p>
+</div>
+
+<h2>OPEN SOURCE CONTRIBUTIONS</h2>
+<div class="points" style="margin-top:0">
+    <p><b>gsplat</b> <a class="pr" href="https://github.com/nerfstudio-project/gsplat/pull/1063">PR #1063</a> (open): opacity × area weighted K-means for the <code>PngCompression</code> SH codebook, <b class="nw">+0.111 dB</b> mean PSNR on 9 MipNeRF360 scenes and +0.052 dB on Tanks &amp; Temples, better on every scene at the same size and format.</p>
+    <p><b>gsplat</b> <a class="pr" href="https://github.com/nerfstudio-project/gsplat/pull/1061">PR #1061</a> (open): fixed <code>PngCompression</code> failing on <code>sh_degree=0</code> scenes and empty tensors.</p>
 </div>
 
 <h2>PROJECTS</h2>
@@ -126,21 +136,21 @@ b{font-weight:700;color:var(--body)}
     <span class="name">splat-lab</span>
     <span class="tech">Vite · TypeScript · Three.js · <a href="https://daceyyreal.github.io/splat-lab/">live demo</a></span>
   </div>
-  <p>In-browser, real-time demo of the compression pipeline with opacity / scale / SH / quantization sliders and an honest on-screen size readout; a TypeScript port of the splat-slim math.</p>
+  <p>Real-time in-browser demo of the pipeline with live sliders and an honest size readout; a TypeScript port of splat-slim.</p>
 </div>
 <div class="proj">
   <div class="row" style="margin-top:0">
     <span class="name">nerf-prep</span>
     <span class="tech">Python · Docker · GitHub Actions · <a href="https://github.com/Daceyyreal/nerf-prep">repo</a></span>
   </div>
-  <p>One-command Dockerized COLMAP → Nerfstudio dataset prep: automatic matcher selection by capture type, GPU/CPU auto-detect, headless operation, input validation, and a registration-rate summary.</p>
+  <p>One-command Dockerized COLMAP → Nerfstudio prep: capture-aware matching, GPU/CPU auto-detect, registration report.</p>
 </div>
 <div class="proj">
   <div class="row" style="margin-top:0">
     <span class="name">paper-chat</span>
     <span class="tech">Python · Streamlit · sentence-transformers · <a href="https://github.com/Daceyyreal/paper-chat">repo</a></span>
   </div>
-  <p>RAG over a PDF / arXiv library with per-(paper, page) citations, cross-paper questions, and grounded-only answers (declines when sources don't cover the question).</p>
+  <p>RAG over a PDF / arXiv library with per-(paper, page) citations; declines when its sources don't cover the question.</p>
 </div>
 
 <div class="proj">
@@ -155,7 +165,7 @@ b{font-weight:700;color:var(--body)}
     <span class="name">medical-expert-system</span>
     <span class="tech">Python · Flask · scikit-learn · <a href="https://github.com/Daceyyreal/medical-expert-system">repo</a></span>
   </div>
-  <p>Hybrid diagnosis expert system combining rule-based confidence factors, A* and Best-First search, Bayesian inference and a Decision Tree plus MLP classifier in a weighted ensemble, served through a Flask interface.</p>
+  <p>Diagnosis system ensembling rule-based confidence factors, A* search, Bayesian inference and a Decision Tree + MLP.</p>
 </div>
 
 <h2>TECHNICAL SKILLS</h2>
@@ -168,8 +178,7 @@ b{font-weight:700;color:var(--body)}
   <span class="l">Dr. Ishtiak Al Mamoon</span>
   <span class="r">Professor</span>
 </div>
-<div class="sub">Department of Computer Science &amp; Engineering, IUBAT</div>
-<div class="fact">ishtiak.cse@iubat.edu</div>
+<div class="sub">Department of Computer Science &amp; Engineering, IUBAT <span class="sep">·</span> <span class="gpa">ishtiak.cse@iubat.edu</span></div>
 
 </body>
 </html>
