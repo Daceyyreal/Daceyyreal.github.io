@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My paper&rsquo;s fix didn&rsquo;t help gsplat. Measuring the loss found one that did. · Md. Taifur Hossain</title>
+<meta name="description" content="Two dead hypotheses and one measured win in gsplat's PNG codec: opacity × area weighted K-means, +0.111 dB on MipNeRF360 at the same size and format." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#090d0b;
+    --bg-2:#0e1411;
+    --panel:#121a15;
+    --line:#1d2722;
+    --line-2:#28362f;
+    --text:#e8efe9;
+    --soft:#c2cdc6;
+    --mute:#7e8c85;
+    --dim:#54625b;
+    --accent:#6fd79e;
+    --accent-2:#54c187;
+    --accent-soft:rgba(84,193,135,.13);
+    --serif:"Bricolage Grotesque",serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--serif);
+    font-weight:330;line-height:1.7;-webkit-font-smoothing:antialiased;font-size:17.5px}
+  ::selection{background:var(--accent);color:var(--bg)}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line-2);transition:border-color .2s}
+  a:hover{border-color:var(--accent)}
+
+  .glow{position:fixed;top:-25vh;left:50%;transform:translateX(-50%);
+    width:120vw;height:80vh;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 0%,var(--accent-soft),transparent 62%)}
+
+  .wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:0 28px}
+
+  /* top bar */
+  .bar{display:flex;justify-content:space-between;align-items:center;
+    padding:26px 0 0;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+  .bar a{border:none;color:var(--mute)}
+  .bar a:hover{color:var(--accent)}
+  .bar .back::before{content:"← "}
+  .bar .home{color:var(--soft)}
+  .bar .home span{color:var(--accent)}
+
+  /* article head */
+  header.post{padding:64px 0 40px;border-bottom:1px solid var(--line);margin-bottom:44px}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  h1{font-size:clamp(2rem,5.2vw,3rem);font-weight:600;line-height:1.08;letter-spacing:-.02em}
+  .dek{margin-top:24px;font-size:1.12rem;font-weight:300;color:var(--mute);line-height:1.6}
+  .dek em{font-style:normal}
+  .dek a{color:var(--soft)}
+
+  article{padding-bottom:30px}
+  article h2{font-size:1.45rem;font-weight:600;letter-spacing:-.01em;margin:52px 0 16px;line-height:1.25}
+  article h2::before{content:"";display:inline-block;width:18px;height:2px;background:var(--accent);
+    vertical-align:middle;margin-right:13px;transform:translateY(-4px)}
+  article p{margin:0 0 20px;color:var(--soft);font-weight:330}
+  article strong,article b{color:var(--text);font-weight:600}
+  article em{color:var(--soft)}
+
+  /* lists */
+  article ul,article ol{margin:0 0 22px;padding-left:4px;list-style:none;counter-reset:li}
+  article li{position:relative;padding-left:26px;margin-bottom:11px;color:var(--soft)}
+  article ul li::before{content:"";position:absolute;left:4px;top:.62em;width:6px;height:6px;
+    background:var(--accent-2);border-radius:50%}
+  article ol li{counter-increment:li}
+  article ol li::before{content:counter(li);position:absolute;left:0;top:.05em;
+    font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);
+    border:1px solid var(--line-2);border-radius:50%;width:19px;height:19px;
+    display:flex;align-items:center;justify-content:center}
+  article ol li{padding-left:32px}
+
+  /* code */
+  code{font-family:var(--mono);font-size:.84em;background:var(--bg-2);
+    border:1px solid var(--line);border-radius:5px;padding:1.5px 6px;color:var(--accent);
+    white-space:nowrap}
+
+  /* tables */
+  .tw{overflow-x:auto;margin:0 0 26px;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:14.5px}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  thead th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--accent);background:var(--bg-2)}
+  tbody td{font-family:var(--mono);font-size:13px;color:var(--soft)}
+  tbody td:first-child{font-weight:500;color:var(--text)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--bg-2)}
+
+  /* trailing note */
+  article hr{border:none;border-top:1px solid var(--line);margin:44px 0 28px}
+  article hr + p{font-family:var(--mono);font-size:13px;color:var(--mute);line-height:1.7}
+  article hr + p em{color:var(--mute)}
+  article hr + p a{color:var(--accent)}
+
+  footer.foot{border-top:1px solid var(--line);margin-top:10px;padding:34px 0 70px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+    font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+  footer.foot a{border:none;color:var(--mute)}
+  footer.foot a:hover{color:var(--accent)}
+
+  @media(max-width:600px){
+    body{font-size:16.5px}
+    .wrap{padding:0 20px}
+    header.post{padding:44px 0 30px;margin-bottom:34px}
+    article h2{margin-top:40px}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+  <div class="bar">
+    <a class="back" href="../">Md. Taifur Hossain</a>
+    <a class="home" href="../#writing">DACE<span>//</span>writing</a>
+  </div>
+
+  <header class="post">
+    <div class="kicker">gsplat · engineering note</div>
+    <h1>My paper&rsquo;s fix didn&rsquo;t help gsplat. Measuring the loss found one that did.</h1>
+  </header>
+
+  <article>
+    <p class="dek"><em>Two negative results and one measured win from trying to improve the PNG codec in <a href="https://github.com/nerfstudio-project/gsplat">gsplat</a>, the Gaussian Splatting library from the Nerfstudio project. The win is now an open pull request, <a href="https://github.com/nerfstudio-project/gsplat/pull/1063">#1063</a>.</em></p>
+<p>One finding in my ICCA paper is a failure. Quantize a 3D Gaussian Splatting model to 8 bits with one min/max per attribute column, and quality collapses: a few outliers stretch the range and crush everything else into a handful of integer codes. Give small groups of splats their own ranges and it comes back. (<a href="int8-collapse-morton-fix.html">The full story is here</a>.) Then I read gsplat&rsquo;s <code>PngCompression</code>, the codec behind its compression benchmark, and found one min/max per channel. It looked like the same problem.</p>
+<p><strong>The short version: the fix from my paper didn&rsquo;t transfer to a real codec, and measuring where the loss actually sat found a better one, worth +0.111 dB at the same file size.</strong> The two dead ends on the way are the part I trust most.</p>
+<h2>What the codec does</h2>
+<p><code>PngCompression</code> sorts the splats into a 2D grid and stores each parameter as an image: the log-transformed means as 16-bit PNGs, everything else as 8-bit PNGs, each channel against one global min/max. The higher-order spherical-harmonic coefficients (shN) go through K-means instead: 65,536 centroids and a codebook quantized to 6 bits with one scalar min/max. All experiments use gsplat&rsquo;s own benchmark scripts (MCMC, 1M Gaussians) on Kaggle T4s.</p>
+<h2>Hypothesis 1: the ranges are too wide</h2>
+<p>The direct port of my fix is tile-wise ranges: give each tile of the grid its own min/max per channel. The collapse does exist here. With the means forced to 8 bits, one range per channel gives 14.20 / 14.53 dB on garden / bicycle, and tile ranges bring that back to 21.70 / 20.50 dB. But the codec stores the means with 16 bits, so its default never enters that regime.</p>
+<p>At the real bit depths, tiles help a little and cost a lot: tile 8 gains +0.027 / +0.054 dB and makes the output 27.1% / 29.5% bigger. The fair competitor is the cheapest one: keep the ranges you have and use fewer bits. I traced that curve, and <strong>all 22 tile and smooth-range configs whose size fell inside it landed below it at matched size</strong>, the best by 0.068 / 0.087 dB. A second, independent training agreed. Against the current codec, tiles look like a small win. Against &ldquo;just use fewer bits&rdquo;, they lose.</p>
+<h2>Stop guessing: split the loss</h2>
+<p>My next idea was already lined up. This time I measured first, swapping one stage at a time for its uncompressed input: <strong>U</strong> is the uncompressed checkpoint, <strong>P</strong> leaves the PNG parameters as raw floats, <strong>S</strong> leaves shN raw, and <strong>F</strong> clusters shN but keeps float centroids.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Loss term</th>
+<th>garden</th>
+<th>bicycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total: U minus compressed</td>
+<td>0.434 dB</td>
+<td>0.237 dB</td>
+</tr>
+<tr>
+<td>shN compression: U minus P</td>
+<td>0.403 dB</td>
+<td>0.176 dB</td>
+</tr>
+<tr>
+<td>PNG parameters: U minus S</td>
+<td>0.034 dB</td>
+<td>0.063 dB</td>
+</tr>
+<tr>
+<td><strong>Clustering: S minus F</strong></td>
+<td><strong>0.374 dB</strong></td>
+<td><strong>0.163 dB</strong></td>
+</tr>
+<tr>
+<td>6-bit codebook: F minus compressed</td>
+<td>0.026 dB</td>
+<td>0.011 dB</td>
+</tr>
+</tbody>
+</table></div>
+<p>The split is approximate, since PSNR losses don&rsquo;t add exactly, but the shape is clear. Everything hypothesis 1 was about costs 0.034 / 0.063 dB. The clustering costs 0.374 / 0.163 dB: a million splats share 65,536 centroids.</p>
+<p><strong>My second hypothesis died on this table.</strong> I had been eyeing the codebook, one scalar range over the whole thing, the one-ruler pattern from my paper again. The table capped any fix there at 0.026 / 0.011 dB.</p>
+<h2>Hypothesis 2: a better ruler for the codebook</h2>
+<p>I ran it anyway, as a test of the table. One min/max per codebook dimension at 8 bits gained <strong>+0.026 / +0.011 dB</strong>, the predicted ceiling to the third decimal, for 5.2% / 4.2% more bytes. A small lever, correctly measured, and not a pull request. It also meant I could trust the table&rsquo;s other row.</p>
+<h2>Hypothesis 3: which centroids, not how they&rsquo;re stored</h2>
+<p>The library clusters with TorchPQ, using Manhattan distance, and every splat counts the same. They don&rsquo;t count the same in the image: a large, opaque splat covers far more of the frame than a small, nearly transparent one.</p>
+<p>Run 3 changed only the clustering: same checkpoints, sort, format and decoder. I wrote my own Lloyd&rsquo;s algorithm with per-splat weights, checked it with every weight set to one (it has to match TorchPQ&rsquo;s Euclidean mode), then weighted by opacity, and by opacity × area, where area is the splat&rsquo;s largest cross-section. I also gave TorchPQ 300 iterations instead of 100. At K-means seed 0, relative to the library:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Clustering</th>
+<th>garden PSNR</th>
+<th>bicycle PSNR</th>
+<th>garden size</th>
+<th>bicycle size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Euclidean (TorchPQ)</td>
+<td>−0.038 dB</td>
+<td>−0.022 dB</td>
+<td>+0.18%</td>
+<td>+0.05%</td>
+</tr>
+<tr>
+<td>Lloyd, weight 1</td>
+<td>−0.036 dB</td>
+<td>−0.023 dB</td>
+<td>+0.18%</td>
+<td>+0.05%</td>
+</tr>
+<tr>
+<td>Lloyd, opacity</td>
+<td>+0.032 dB</td>
+<td>+0.016 dB</td>
+<td>−0.19%</td>
+<td>−0.08%</td>
+</tr>
+<tr>
+<td><strong>Lloyd, opacity × area</strong></td>
+<td><strong>+0.082 dB</strong></td>
+<td><strong>+0.027 dB</strong></td>
+<td><strong>−0.25%</strong></td>
+<td><strong>−0.14%</strong></td>
+</tr>
+<tr>
+<td>Manhattan, 300 iterations</td>
+<td>−0.0003 dB</td>
+<td>+0.0022 dB</td>
+<td>−0.0004%</td>
+<td>+0.006%</td>
+</tr>
+</tbody>
+</table></div>
+<p>The surprise is the first row: <strong>plain Euclidean clustering is worse than the Manhattan distance the library already uses.</strong> Had I only tested the distance, I would have stopped there. The weighting is what matters: opacity turns the loss into a gain, and area adds more. The last row rules out convergence as the lever. Over three K-means seeds, opacity × area gained +0.082 / +0.104 / +0.103 dB on garden and +0.027 / +0.031 / +0.033 dB on bicycle, a mean 5.1× / 4.6× the baseline&rsquo;s own seed-to-seed spread.</p>
+<h2>Nine scenes, then a dataset it had never seen</h2>
+<p>Run 4 took all 9 MipNeRF360 scenes from gsplat&rsquo;s benchmark, under a rule written down before the run. Run 5 swapped in the library code from the PR branch, which gave identical metrics and file sizes on all 9, and then ran it on Tanks &amp; Temples, which played no part in choosing the method.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Scene</th>
+<th>Loss of the current codec</th>
+<th>PSNR gain</th>
+<th>Size change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>garden</td>
+<td>0.434 dB</td>
+<td>+0.082 dB</td>
+<td>−0.25%</td>
+</tr>
+<tr>
+<td>bicycle</td>
+<td>0.237 dB</td>
+<td>+0.027 dB</td>
+<td>−0.14%</td>
+</tr>
+<tr>
+<td>stump</td>
+<td>0.290 dB</td>
+<td>+0.048 dB</td>
+<td>+0.06%</td>
+</tr>
+<tr>
+<td>bonsai</td>
+<td>0.859 dB</td>
+<td>+0.272 dB</td>
+<td>−0.30%</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>0.546 dB</td>
+<td>+0.189 dB</td>
+<td>+0.25%</td>
+</tr>
+<tr>
+<td>kitchen</td>
+<td>0.824 dB</td>
+<td>+0.247 dB</td>
+<td>−0.47%</td>
+</tr>
+<tr>
+<td>room</td>
+<td>0.386 dB</td>
+<td>+0.085 dB</td>
+<td>−0.21%</td>
+</tr>
+<tr>
+<td>treehill</td>
+<td>0.101 dB</td>
+<td>+0.005 dB</td>
+<td>−0.15%</td>
+</tr>
+<tr>
+<td>flowers</td>
+<td>0.219 dB</td>
+<td>+0.044 dB</td>
+<td>+0.27%</td>
+</tr>
+<tr>
+<td>T&amp;T train</td>
+<td>0.171 dB</td>
+<td>+0.061 dB</td>
+<td>+0.001%</td>
+</tr>
+<tr>
+<td>T&amp;T truck</td>
+<td>0.188 dB</td>
+<td>+0.044 dB</td>
+<td>+0.153%</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>Loss = uncompressed PSNR minus current-codec PSNR, same checkpoint.</em></p>
+<ul>
+<li><strong>MipNeRF360:</strong> +0.111 dB mean PSNR at −0.10% mean size. <strong>Tanks &amp; Temples:</strong> +0.052 dB at +0.08%.</li>
+<li><strong>All 11 scenes gain.</strong> LPIPS is lower on all 11 and SSIM higher on 10 (garden: −0.00016).</li>
+<li><strong>Same format.</strong> File layout, codebook and decoder are untouched.</li>
+</ul>
+<p>The gain tracks the loss: the weighting recovers 21.1% of the codec&rsquo;s loss on MipNeRF360 on average, most on the indoor scenes, where the loss is largest.</p>
+<h2>What it costs</h2>
+<p>K-means takes 1.26× the TorchPQ time on MipNeRF360 on average (less on Tanks &amp; Temples), and peak GPU memory during compression rises by 2.11 to 2.35 GB; a <code>kmeans_chunk_size</code> option shrinks the largest buffer without changing the result. The <a href="https://github.com/nerfstudio-project/gsplat/pull/1063">PR</a> has the full cost table.</p>
+<h2>How I kept myself honest</h2>
+<p><strong>Write the rule down before the run.</strong> Every run had a pass/fail rule fixed in advance, never changed after its results came in. Run 4&rsquo;s: mean PSNR gain above zero, a gain on all scenes but at most one, none worse than −0.02 dB, mean LPIPS no worse, mean SSIM change no lower than −0.0002, no output more than 0.3% larger. Run 5 reused it.</p>
+<p><strong>Compare in pairs.</strong> Every delta is a candidate minus the baseline from the same session, on the same checkpoint. My baseline sits 0.20 dB above the repo&rsquo;s published MipNeRF360 row; measuring against that row would have credited my method with 0.20 dB it didn&rsquo;t earn.</p>
+<p><strong>Measure the noise floor, then respect it.</strong> Re-running the unchanged codec with three K-means seeds moves PSNR by 0.019 / 0.007 dB and SSIM by 0.000158 / 0.000051. Run 3&rsquo;s rule ignored that: it demanded a match or better in every cell, with zero tolerance. Opacity × area gained PSNR and LPIPS in all six cells and failed two garden SSIM cells, −0.00016 and −0.00009, both inside the baseline&rsquo;s own spread. So the recorded run-3 verdict for the method that went on to win all 11 scenes is <code>pr_worthy = false</code>. I left it, because a rule relaxed after seeing the answer isn&rsquo;t a rule, and wrote run 4&rsquo;s rule with a small tolerance on mean SSIM. A rule that looks rigorous but is measuring seed noise says no to a real win.</p>
+<p><strong>Correct the record where the claim was made.</strong> After run 3 I wrote that TorchPQ&rsquo;s K-means is deterministic per seed across sessions. Run 5 re-ran it on all nine scenes: identical on 7, off by +0.0024 dB and +0.00006 dB on the other two. The result survives (paired against that re-run, the gain is +0.1106 dB), but the sentence was wrong, so the findings file corrects it where it was written.</p>
+<h2>Takeaways</h2>
+<ol>
+<li><strong>A failure you&rsquo;ve proven is only a hypothesis in someone else&rsquo;s code.</strong> The collapse reproduced in gsplat, at a bit depth the codec doesn&rsquo;t use.</li>
+<li><strong>Beat the cheapest alternative, not the status quo.</strong> Tile ranges beat the current codec and lost to &ldquo;use fewer bits&rdquo;.</li>
+<li><strong>Decompose the loss before picking a fix.</strong> One table killed a hypothesis, predicted its ceiling, and pointed at the term worth 0.374 / 0.163 dB.</li>
+<li><strong>Fix the rule before the run, and size it to the noise.</strong> Too strict, and it rejects real wins. Changed afterwards, and it rejects nothing.</li>
+</ol>
+<h2>The pull request</h2>
+<p>The change is open as <a href="https://github.com/nerfstudio-project/gsplat/pull/1063">gsplat#1063</a>: the new backend with the default output unchanged, a memory knob, and a separate, droppable commit that makes it the default. Every number here comes from <a href="https://github.com/Daceyyreal/gsplat/blob/bench/tilequant/kaggle/FINDINGS.md">FINDINGS.md</a>, which records all five runs, their rules, their verdicts and the corrections.</p>
+<hr />
+<p><em>Built on <a href="https://github.com/nerfstudio-project/gsplat">gsplat</a> and its compression benchmark; evaluated on MipNeRF360 and Tanks &amp; Temples on Kaggle T4 GPUs. Comments and corrections welcome.</em></p>
+  </article>
+
+  <footer class="foot">
+    <a href="../">← back to portfolio</a>
+    <span>github.com/Daceyyreal</span>
+  </footer>
+</div>
+</body>
+</html>

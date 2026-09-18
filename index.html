@@ -225,6 +225,12 @@
   .post:hover .go{color:var(--amber)}
   @media(max-width:640px){.post{grid-template-columns:1fr}.post .idx,.post .go{display:none}}
 
+  /* upstream contributions: same rows as the writing list */
+  .contrib{margin-top:44px}
+  .contrib .clbl{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+  .post .state{display:inline-block;margin-left:10px;font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);border:1px solid var(--line);padding:2px 7px;border-radius:2px;vertical-align:middle}
+  @media(max-width:640px){.contrib .post{gap:6px}.contrib .post .idx{display:block}}
+
   /* about */
   .about{display:grid;grid-template-columns:1fr 1fr;gap:60px}
   @media(max-width:760px){.about{grid-template-columns:1fr;gap:34px}}
@@ -309,7 +315,7 @@
     <div><div class="k">STACK</div><div class="v">Python · TS · Three.js</div></div>
     <div><div class="k">SEEKING</div><div class="v">CS MS · SWE roles</div></div>
     <div><div class="k">PAPER</div><div class="v">ICCA 2026 · accepted</div></div>
-    <div><div class="k">SHIPPED</div><div class="v">4 tools · 2 writeups</div></div>
+    <div><div class="k">SHIPPED</div><div class="v">4 tools · 3 writeups</div></div>
     <div><div class="k">GITHUB</div><div class="v"><a href="https://github.com/Daceyyreal" target="_blank" rel="noopener">@Daceyyreal</a></div></div>
   </div>
   <div class="heroacts rv">
@@ -431,17 +437,38 @@
     <div><div class="n">15 dB</div><div class="l">the naive per-column INT8 collapse the paper diagnoses</div></div>
     <div><div class="n">3 scenes</div><div class="l">MipNeRF-360 outdoor ×2 + self-captured indoor</div></div>
   </div>
+  <div class="contrib rv">
+    <div class="clbl">Upstream contributions · nerfstudio-project/gsplat</div>
+    <div class="posts">
+      <a class="post" href="https://github.com/nerfstudio-project/gsplat/pull/1063" target="_blank" rel="noopener">
+        <div class="idx">#1063</div>
+        <div class="body">
+          <h3>Weighted K-means for the PNG codec's SH codebook <span class="state">open</span></h3>
+          <p>Clusters splats weighted by opacity × area: +0.111 dB mean PSNR on 9 MipNeRF360 scenes and +0.052 dB on Tanks &amp; Temples, better on every scene at the same file size and format. Plain PyTorch, no TorchPQ needed.</p>
+        </div>
+        <div class="go">PR ↗</div>
+      </a>
+      <a class="post" href="https://github.com/nerfstudio-project/gsplat/pull/1061" target="_blank" rel="noopener">
+        <div class="idx">#1061</div>
+        <div class="body">
+          <h3>Fix compressing sh_degree=0 scenes <span class="state">open</span></h3>
+          <p>PngCompression's empty-tensor checks compared the function torch.numel with 0, so they never fired. Scenes without higher-order SH now compress and decompress, without TorchPQ.</p>
+        </div>
+        <div class="go">PR ↗</div>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- ============ WRITING ============ -->
 <section id="writing" class="wrap">
   <div class="shead rv"><span class="no">03</span><h2>Writing</h2><span class="rule"></span></div>
   <div class="posts rv">
-    <a class="post" href="./writing/int8-collapse-morton-fix.html">
-      <div class="idx">001</div>
+    <a class="post" href="./writing/gsplat-weighted-kmeans.html">
+      <div class="idx">003</div>
       <div class="body">
-        <h3>Why per-column INT8 collapses 3DGS to 15 dB, and how Morton ordering fixes it</h3>
-        <p>A scene-independent quality cliff turned out to be a quantization-range artifact. Morton Z-order sub-group ranges recover to within 0.08–0.66 dB of FP16, self-decodable from a sidecar.</p>
+        <h3>Two dead hypotheses and a +0.111 dB fix for gsplat's PNG codec</h3>
+        <p>My paper's range fix reproduced in gsplat but had nothing to win at the codec's real bit depths. A loss decomposition pointed at K-means clustering, and weighting splats by opacity × area gained on all 11 benchmark scenes.</p>
       </div>
       <div class="go">read →</div>
     </a>
@@ -450,6 +477,14 @@
       <div class="body">
         <h3>The fine-tune that silently did nothing: a zero-update negative result</h3>
         <p>Post-pruning fine-tuning that looked like it ran but moved no weights. Pruning outside the densification strategy desynced the optimizer's moment buffers, so steps landed on stale tensors.</p>
+      </div>
+      <div class="go">read →</div>
+    </a>
+    <a class="post" href="./writing/int8-collapse-morton-fix.html">
+      <div class="idx">001</div>
+      <div class="body">
+        <h3>Why per-column INT8 collapses 3DGS to 15 dB, and how Morton ordering fixes it</h3>
+        <p>A scene-independent quality cliff turned out to be a quantization-range artifact. Morton Z-order sub-group ranges recover to within 0.08–0.66 dB of FP16, self-decodable from a sidecar.</p>
       </div>
       <div class="go">read →</div>
     </a>
