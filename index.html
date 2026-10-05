@@ -437,7 +437,7 @@
   </div>
   <div class="stats rv">
     <div><div class="n">~74%</div><div class="l">size reduction, no retraining (mixed precision, SH3)</div></div>
-    <div><div class="n">≤0.66 dB</div><div class="l">PSNR gap vs FP16 with Morton sub-group INT8</div></div>
+    <div><div class="n">0.1–0.7 dB</div><div class="l">Morton sub-group INT8 stays within this of FP16 PSNR</div></div>
     <div><div class="n">15 dB</div><div class="l">the naive per-column INT8 collapse the paper diagnoses</div></div>
     <div><div class="n">3 scenes</div><div class="l">MipNeRF-360 outdoor ×2 + self-captured indoor</div></div>
   </div>
@@ -489,7 +489,7 @@
       <div class="idx">001</div>
       <div class="body">
         <h3>Why per-column INT8 collapses 3DGS to 15 dB, and how Morton ordering fixes it</h3>
-        <p>A scene-independent quality cliff turned out to be a quantization-range artifact. Morton Z-order sub-group ranges recover to within 0.08–0.66 dB of FP16, self-decodable from a sidecar.</p>
+        <p>A scene-independent quality cliff turned out to be a quantization-range artifact. Morton Z-order sub-group ranges recover to within 0.1–0.7 dB of FP16, self-decodable from a sidecar.</p>
       </div>
       <div class="go">read →</div>
     </a>

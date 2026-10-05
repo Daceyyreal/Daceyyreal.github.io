@@ -151,7 +151,7 @@
 </tr>
 <tr>
 <td>Bicycle</td>
-<td>22.77 dB</td>
+<td>22.75 dB</td>
 <td>14.69 dB</td>
 </tr>
 <tr>
@@ -178,7 +178,6 @@
 <th>Scene (SH3)</th>
 <th>FP16 (reference)</th>
 <th>Sub-group INT8</th>
-<th>Gap</th>
 </tr>
 </thead>
 <tbody>
@@ -186,26 +185,23 @@
 <td>Garden</td>
 <td>26.24 dB</td>
 <td>25.82 dB</td>
-<td>0.42 dB</td>
 </tr>
 <tr>
 <td>Bicycle</td>
-<td>22.77 dB</td>
+<td>22.75 dB</td>
 <td>22.11 dB</td>
-<td>0.66 dB</td>
 </tr>
 <tr>
 <td>Vase</td>
 <td>23.92 dB</td>
 <td>23.84 dB</td>
-<td>0.08 dB</td>
 </tr>
 </tbody>
 </table></div>
-<p>From &ldquo;static&rdquo; back to within <strong>0.08–0.66 dB of FP16</strong> — without adding a single bit. Same 8 bits per value; the only thing that changed was that the ranges became local. And because INT8 packs tighter than FP16, this is also the <em>smallest</em> variant on disk: on Garden it&rsquo;s 85.7 MB (a 78% cut from baseline) versus 101 MB for the mixed-precision configuration, at almost the same quality.</p>
+<p>From &ldquo;static&rdquo; back to within <strong>0.1–0.7 dB of FP16</strong> — without adding a single bit. Same 8 bits per value; the only thing that changed was that the ranges became local. And because INT8 packs tighter than FP16, this is also the <em>smallest</em> variant on disk: on Garden it&rsquo;s 85.7 MB (paper&rsquo;s measurement; the splat-slim CLI writes 87.0 MB + a 0.43 MB range sidecar; see the <a href="https://github.com/Daceyyreal/splat-slim#known-differences-from-the-paper">README&rsquo;s Known differences</a>), a 78% cut from baseline, versus 101 MB for the mixed-precision configuration, at almost the same quality.</p>
 <h2>Making it self-decodable</h2>
 <p>A subtlety that&rsquo;s easy to get wrong: once each group has its own range, the file has to <em>carry</em> those ranges, or it can&rsquo;t decode itself. My first cut leaned on global statistics and quietly assumed they&rsquo;d be recomputable later — which is exactly how you ship a compressed file that nobody else can open.</p>
-<p>So the per-group ranges travel with the model, in a sidecar <code>.meta.npz</code> next to the quantized integers. Decompression needs nothing but the file itself: read the group&rsquo;s stored range, invert the map, done. No recomputation, no external state, no surprises.</p>
+<p>So the per-group ranges travel with the model, in a sidecar <code>.meta.npz</code> next to the quantized integers. Decompression needs no model or codebook: FP16 files need nothing at all, mixed and plain INT8 files carry their ranges in the PLY header, and sub-group INT8 keeps its per-group ranges in that small sidecar. Read the group&rsquo;s stored range, invert the map, done. No recomputation, no surprises.</p>
 <h2>Three things I took away</h2>
 <ol>
 <li><strong>Quantization error is about range granularity, not just bit-width.</strong> When a single range is dominated by outliers, adding bits is the wrong fix; partitioning into locally-coherent groups is the right one. This generalizes well beyond 3DGS — it&rsquo;s the same reason neural-network quantization moved from per-tensor to per-channel and per-group scales.</li>

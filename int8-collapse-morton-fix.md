@@ -21,7 +21,7 @@ The naive choice is one range per attribute column. Take every Gaussian's `scale
 | Scene (SH3) | FP16 (reference) | Per-column INT8 |
 | ----------- | ---------------- | --------------- |
 | Garden      | 26.24 dB         | 14.92 dB        |
-| Bicycle     | 22.77 dB         | 14.69 dB        |
+| Bicycle     | 22.75 dB         | 14.69 dB        |
 | Vase        | 23.92 dB         | 14.85 dB        |
 
 *Per-column INT8 lands at ~15 dB on every scene. The full FP16 / mixed / per-column / sub-group sweep across SH levels is in `fig3_quantization_compare.png`.*
@@ -46,19 +46,19 @@ So I sort the Gaussians along a **Morton (Z-order) curve**. A Morton curve is a 
 
 The result, at SH degree 3:
 
-| Scene (SH3) | FP16 (reference) | Sub-group INT8 | Gap     |
-| ----------- | ---------------- | -------------- | ------- |
-| Garden      | 26.24 dB         | 25.82 dB       | 0.42 dB |
-| Bicycle     | 22.77 dB         | 22.11 dB       | 0.66 dB |
-| Vase        | 23.92 dB         | 23.84 dB       | 0.08 dB |
+| Scene (SH3) | FP16 (reference) | Sub-group INT8 |
+| ----------- | ---------------- | -------------- |
+| Garden      | 26.24 dB         | 25.82 dB       |
+| Bicycle     | 22.75 dB         | 22.11 dB       |
+| Vase        | 23.92 dB         | 23.84 dB       |
 
-From "static" back to within **0.08–0.66 dB of FP16** — without adding a single bit. Same 8 bits per value; the only thing that changed was that the ranges became local. And because INT8 packs tighter than FP16, this is also the *smallest* variant on disk: on Garden it's 85.7 MB (a 78% cut from baseline) versus 101 MB for the mixed-precision configuration, at almost the same quality.
+From "static" back to within **0.1–0.7 dB of FP16** — without adding a single bit. Same 8 bits per value; the only thing that changed was that the ranges became local. And because INT8 packs tighter than FP16, this is also the *smallest* variant on disk: on Garden it's 85.7 MB (paper's measurement; the splat-slim CLI writes 87.0 MB + a 0.43 MB range sidecar; see the [README's Known differences](https://github.com/Daceyyreal/splat-slim#known-differences-from-the-paper)), a 78% cut from baseline, versus 101 MB for the mixed-precision configuration, at almost the same quality.
 
 ## Making it self-decodable
 
 A subtlety that's easy to get wrong: once each group has its own range, the file has to *carry* those ranges, or it can't decode itself. My first cut leaned on global statistics and quietly assumed they'd be recomputable later — which is exactly how you ship a compressed file that nobody else can open.
 
-So the per-group ranges travel with the model, in a sidecar `.meta.npz` next to the quantized integers. Decompression needs nothing but the file itself: read the group's stored range, invert the map, done. No recomputation, no external state, no surprises.
+So the per-group ranges travel with the model, in a sidecar `.meta.npz` next to the quantized integers. Decompression needs no model or codebook: FP16 files need nothing at all, mixed and plain INT8 files carry their ranges in the PLY header, and sub-group INT8 keeps its per-group ranges in that small sidecar. Read the group's stored range, invert the map, done. No recomputation, no surprises.
 
 ## Three things I took away
 
