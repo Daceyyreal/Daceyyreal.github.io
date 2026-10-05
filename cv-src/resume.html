@@ -133,7 +133,7 @@ a.pr{color:var(--accent);font-weight:700}
   <ul class="blist">
     <li>Compresses trained 3DGS models by <b>roughly 74% with under 3 dB quality loss</b>, with no retraining.</li>
     <li>Four-stage pipeline: adaptive opacity pruning, outlier clipping, spherical-harmonic reduction, and quantization.</li>
-    <li>Self-decodable mixed-precision format storing per-group ranges in a sidecar <code>.meta.npz</code>, so output still opens in standard viewers.</li>
+    <li>Three quantization modes: FP16, mixed FP16/INT8, and Morton-ordered sub-group INT8, the only one that writes per-group ranges to a sidecar <code>.meta.npz</code>. Unquantized output opens in standard viewers; quantized PLYs need a range-aware reader.</li>
     <li>Shipped as a CLI and a library, with automated tests and linting on every push and a tagged <code>v0.1.0</code> release.</li>
   </ul>
   <div class="ptech"><b>Tech Stack:</b> Python, Typer, NumPy, plyfile, pytest, ruff, GitHub Actions.</div>
