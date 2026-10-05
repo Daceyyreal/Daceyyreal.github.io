@@ -114,7 +114,7 @@ a.pr{color:var(--accent);font-weight:700}
   <p>Designed a training-free post-processing pipeline (adaptive pruning → outlier cleaning → spherical-harmonic reduction → mixed-precision quantization) achieving a <b>74% mean size reduction</b> across three scenes at a 1.3 to 2.7 dB PSNR cost.</p>
   <p>Diagnosed a per-column INT8 quantization collapse (~15 dB uniform) and recovered to within <b>0.1 to 0.7 dB of FP16</b> using Morton Z-order sub-group ranges, a positive and reproducible quantization finding.</p>
   <p>Isolated a zero-update failure in post-pruning fine-tuning (stale optimizer state), reported as a negative result.</p>
-  <p>Ran the full multi-scene pipeline on a single 16 GB Kaggle T4 GPU using the Nerfstudio / gsplat ecosystem.</p>
+  <p>Ran the full multi-scene pipeline on a single NVIDIA T4 (Kaggle) using the Nerfstudio / gsplat ecosystem.</p>
 </div>
 
 <h2>OPEN SOURCE CONTRIBUTIONS</h2>
