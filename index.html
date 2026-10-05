@@ -141,6 +141,8 @@
     margin-right:6px;
     vertical-align:middle;
   }
+  .card .status.rel{padding:0;border:0;line-height:0;background:none}
+  .card .status.rel img{display:block;height:20px;width:auto}
   .card p{margin-top:14px;font-size:.97rem;font-weight:300;color:#c4c1ba;flex:1}
   .card .stack{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.03em}
   .card .acts{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px 18px;font-family:var(--mono);font-size:12px}
@@ -194,6 +196,8 @@
   .stats div{background:var(--ink-2);padding:20px 22px}
   .stats .n{font-family:var(--mono);font-size:clamp(1.3rem,2.6vw,1.8rem);font-weight:700;color:var(--amber)}
   .stats .l{margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em;line-height:1.45}
+
+  .fnote{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.03em;line-height:1.5}
 
   /* toolbox chips */
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
@@ -332,9 +336,9 @@
     <div class="card">
       <div class="top">
         <h3>splat-slim <span class="flag">★</span></h3>
-        <span class="status">v0.1.0</span>
+        <span class="status rel"><img src="https://img.shields.io/github/v/release/Daceyyreal/splat-slim?label=release&amp;style=flat-square&amp;labelColor=101015&amp;color=166534" alt="latest release" height="20" loading="lazy" decoding="async"></span>
       </div>
-      <p>Training-free 3D Gaussian Splatting compression as a CLI + library. Mixed-precision and self-decodable sub-group INT8, giving ~74% size reduction at sub-dB quality loss. The flagship.</p>
+      <p>Training-free 3D Gaussian Splatting compression as a CLI + library. Mixed precision is ~74% smaller at a 1.3–2.7 dB PSNR cost; self-decodable sub-group INT8 lands within 0.1–0.7 dB of FP16. The flagship.</p>
       <div class="stack">Python · Typer · numpy · plyfile · ruff + pytest CI · MIT</div>
       <div class="acts">
         <a class="stretch" href="https://github.com/Daceyyreal/splat-slim" target="_blank" rel="noopener">repo</a>
@@ -359,7 +363,7 @@
     <div class="card">
       <div class="top">
         <h3>nerf-prep</h3>
-        <span class="status">v0.1.1</span>
+        <span class="status rel"><img src="https://img.shields.io/github/v/release/Daceyyreal/nerf-prep?label=release&amp;style=flat-square&amp;labelColor=101015&amp;color=166534" alt="latest release" height="20" loading="lazy" decoding="async"></span>
       </div>
       <p>Dockerized, one-command COLMAP → Nerfstudio dataset prep. Point it at a folder of photos, get a training-ready scene. Published to ghcr, OCI-labelled.</p>
       <div class="stack">Python · Typer · COLMAP · Docker / ghcr · MIT</div>
@@ -428,7 +432,7 @@
     </div>
     <div class="fig">
       <img src="./assets/fig1_pareto.png" alt="Size vs PSNR Pareto frontier across Garden, Bicycle, and Vase scenes" loading="lazy" onerror="this.closest('.fig').style.display='none'" />
-      <div class="cap">Size–quality Pareto frontier across three scenes. Mixed precision holds quality while cutting ~74% of file size.</div>
+      <div class="cap">Size–quality Pareto frontier across three scenes. Mixed precision matches FP16 quality while cutting ~74% of file size (1.3–2.7 dB below the uncompressed baseline).</div>
     </div>
   </div>
   <div class="stats rv">
@@ -437,6 +441,7 @@
     <div><div class="n">15 dB</div><div class="l">the naive per-column INT8 collapse the paper diagnoses</div></div>
     <div><div class="n">3 scenes</div><div class="l">MipNeRF-360 outdoor ×2 + self-captured indoor</div></div>
   </div>
+  <p class="fnote rv">Mixed precision = FP16 geometry + INT8 appearance; opacity is stored at 8 bits, matching the paper&rsquo;s reported file sizes.</p>
   <div class="contrib rv">
     <div class="clbl">Upstream contributions · nerfstudio-project/gsplat</div>
     <div class="posts">

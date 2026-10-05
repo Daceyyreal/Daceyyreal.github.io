@@ -70,7 +70,7 @@ So the per-group ranges travel with the model, in a sidecar `.meta.npz` next to 
 
 The collapse is more convincing when you can drag a slider and watch it happen. [splat-lab](https://daceyyreal.github.io/splat-lab/) runs the whole pipeline live in the browser — flip the quantization control to INT8 and the model falls apart in front of you; the size readout is computed honestly from the field layout, so the numbers are the real numbers.
 
-A practical note on the tooling: [splat-slim](https://github.com/Daceyyreal/splat-slim) ships **mixed precision** (FP16 geometry + INT8 appearance) as its recommended, fully-supported default — it sidesteps the collapse entirely and already gives ~74% size reduction. The Morton-ordered sub-group INT8 described here is the research method from my undergraduate work; it now ships in splat-slim as `--quant int8-subgroup` ([v0.2.0](https://github.com/Daceyyreal/splat-slim/releases/tag/v0.2.0)), with the per-group ranges written to a sidecar `.meta.npz`.
+A practical note on the tooling: [splat-slim](https://github.com/Daceyyreal/splat-slim) ships **mixed precision** (FP16 geometry + INT8 appearance; opacity is stored at 8 bits, matching the paper's reported file sizes) as its recommended, fully-supported default — it sidesteps the collapse entirely and already gives ~74% size reduction. The Morton-ordered sub-group INT8 described here is the research method from my undergraduate work; it now ships in splat-slim as `--quant int8-subgroup` ([v0.2.0](https://github.com/Daceyyreal/splat-slim/releases/tag/v0.2.0)), with the per-group ranges written to a sidecar `.meta.npz`.
 
 ---
 
